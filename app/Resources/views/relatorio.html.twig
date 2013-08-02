@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+        .table {
+            width: 100%;
+            border: 1px solid #CCC;
+            color: #000000;
+
+            border-spacing:0;
+            border-collapse:collapse;
+        }
+
+        .table th{
+            font-size: 12px;
+            font-weight: bold;
+            border: 1px solid #CCC;
+            background-color: #F1F1F1;
+            padding: 5px;
+        }
+
+        .table td{
+            font-size: 11px;
+            border: 1px solid #CCC;
+            padding: 5px;
+        }
+
+        .row-header {
+            width: 100%;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #CCC;
+            padding-bottom: 10px;
+        }
+
+        .row-footer {
+            width: 100%;
+            margin-top: 20px;
+            border-top: 1px solid #CCC;
+            padding-top: 10px;
+            font-size: 10px;
+        }
+
+        .title {
+            font-family: arial;
+            font-size: 13px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .text-hide {
+            font-family: arial;
+            font-size: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="row-header">
+        <table>
+            <tr>
+                <td><img src="http://www.tagmeta.com.br/{{ asset('bundles/coreorthos/img/logo_orthos.jpg') }}" width="130px" /></td>
+                <td style="width: 100px;">&nbsp;</td>
+                <td class="title">{% block titleReport %}{% endblock %}</td>
+                <td style="width: 130px;">&nbsp;</td>
+                <td class="text-hide">Documento Gerado: {{ "now"|date("m/d/Y H:i:s") }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="content row-fluid">
+        {% block body %}{% endblock %}
+    </div>
+</body>
+</html>

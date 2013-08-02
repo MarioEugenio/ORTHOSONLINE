@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{% block title %}{% endblock %}</title>
+    {% block css %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+    <script type="text/javascript"> var baseUrl = "{{ app.request.baseurl }}"; </script>
+    <script type="text/javascript"> var uri = "{{ app.request.uri }}"; </script>
+    <script type="text/javascript"> var assetBase = "{{ app.request.basePath }}"; </script>
+
+    {% block js %}{% endblock %}
+</head>
+<body class="bg-corp">
+{% block body %}{% endblock %}
+<div id="loading">
+    <div class="form-loading">&nbsp;Carregando...</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+parameters:
+    database_driver:   pdo_mysql
+    database_host:     localhost
+    database_port:     3306
+    database_name:     renatoca_tagmeta
+    database_user:     orthos
+    database_password: orthos
+
+    mailer_transport: gmail
+    mailer_host:       ~
+    mailer_user:       mario.eugenio@gmail.com
+    mailer_password:   mario@1985
+
+    locale:            en
+    secret:            ThisTokenIsNotSoSecretChangeIt

@@ -1,0 +1,9 @@
+<xml version='1.0'>
+    <list>
+        <url name="Login" text="/login" />
+        <url name="Acesso Negado" text="/accessDenied" />
+        <url name="Autenticação" text="/usuario/autenticar" />
+        <url name="Retorno Financeiro" text="/orthos/financeiro/retorno" />
+        <url name="Upload Imagem" text="/orthos/media/upload" />
+    </list>
+</xml>

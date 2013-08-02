@@ -1,0 +1,77 @@
+core_dashboard:
+    resource: "@CoreDashboardBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+orthos_mensagem:
+    resource: "@OrthosMensagemBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+orthos_prontuario:
+    resource: "@OrthosProntuarioBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+orthos_clinica:
+    resource: "@OrthosClinicaBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+core_orthos:
+    resource: "@CoreOrthosBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+orthos_relatorios:
+    resource: "@OrthosRelatoriosBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+orthos_financeiro:
+    resource: "@OrthosFinanceiroBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+orthos_media:
+    resource: "@OrthosMediaBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+orthos_paciente:
+    resource: "@OrthosPacienteBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+orthos_agenda:
+    resource: "@OrthosAgendaBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+portal_portal:
+    resource: "@PortalPortalBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+CoreMessageBundle:
+    resource: "@CoreMessageBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+_bazinga_exposetranslation:
+    resource: "@BazingaExposeTranslationBundle/Resources/config/routing/routing.yml"
+
+snowcap_im:
+  resource: "@SnowcapImBundle/Resources/config/routing.yml"
+
+# Internal routing configuration to handle ESI
+# ****** WARNING ******
+# This route should be enabled with caution as it can open a security vulnerability
+# see http://symfony.com/blog/security-release-symfony-2-0-20-and-2-1-5-released for more information
+# ****** WARNING ******
+#_internal:
+#    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#    prefix:   /_internal
