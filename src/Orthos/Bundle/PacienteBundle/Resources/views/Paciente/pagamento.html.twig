@@ -1,0 +1,110 @@
+<div ng-controller="pagamentoCtrl">
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Pagamento</h3>
+</div>
+<div class="modal-body">
+    <div class="clearfix padding-content">
+        <form >
+            <input id="parcela" type="hidden" value="{{parcela}}">
+            {% raw %}
+            <div class="row">
+                <div class="span6">
+                    <label>Nº da Parcela</label>
+                    <input type="text" class="span12" readonly="readonly" value="{{pagamento.nuParcela}}">
+                </div>
+                <div class="span6">
+                    <label>Valor</label>
+                    <input type="text" class="span12" readonly="readonly" value="{{pagamento.vlParcela}}">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span6">
+                    <label>Data de Vencimento</label>
+                    <input type="text" class="span12" readonly="readonly" value="{{pagamento.dtVencimento}}">
+                </div>
+                <div class="span6">
+                    <label>Nº de dias em atraso</label>
+                    <input type="text" class="span12" readonly="readonly" value="{{getAtraso()}}">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span6">
+                    <label>Base Juros %</label>
+                    <input type="text" class="span12" readonly="readonly" value="{{getJuros()}}">
+                </div>
+                <div class="span6">
+                    <label>Valor Corrigido</label>
+                    <input type="text" class="span12" readonly="readonly" value="{{getValorCorrigido()}}">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span12">
+                    <label>* Forma de Pagamento</label>
+                    <div class="btn-group" bs-buttons-radio>
+                        <button type="button" ng-click="cartao = false" class="btn" ng-model="pag.boleto">Boleto</button>
+                        <button type="button" ng-click="cartao = true" class="btn" ng-model="pag.cartao_credito">Cartao de Crédito</button>
+                        <button type="button" ng-click="cartao = true" class="btn" ng-model="pag.cartao_debito">Cartao de Débito</button>
+                        <button type="button" ng-click="cartao = false" class="btn" ng-model="pag.cheque">Cheque</button>
+                        <button type="button" ng-click="cartao = false" class="btn" ng-model="pag.dinheiro">Dinheiro</button>
+                    </div>
+                </div>
+            </div><br>
+
+            <div ng-show="cartao" class="row box clearfix">
+                <div class="span12">
+                    <label>* Informações do cartão</label>
+                    <input type="text" class="input-xlarge" placeholder="Titular do cartão">
+                    <input type="text" class="input-medium" placeholder="Nº do cartão">
+                    <input type="text" class="input-medium" placeholder="Dígito de segurança">
+                    <p>
+                    <div class="btn-group" bs-buttons-radio>
+                        <button type="button" class="btn" ng-model="pag.cartao_visa">Visa</button>
+                        <button type="button" class="btn" ng-model="pag.cartao_master">Master</button>
+                    </div>
+                    </p>
+
+                </div>
+
+            </div><br>
+
+            <div ng-show="pag.cheque" class="row box clearfix">
+                <div class="span12">
+                    <label>* Informações do cheque</label>
+                    <input type="text" class="input-xlarge" placeholder="Nº do Documento">
+                    <div class="input-append">
+                        <input type="text" class="date input-medium" placeholder="Data pré datado">
+                        <button type="button" class="btn j-datepicker" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+                    </div>
+
+                </div>
+
+            </div><br>
+
+            <div class="row">
+                <div class="span6">
+                    <label>Desconto</label>
+                    <input type="text" class="span12 j-vlDesconto" ng-model="pag.vl_desconto">
+                </div>
+                <div class="span6">
+                    <label>Valor do Pagamento</label>
+                    <input type="text" class="span12 j-vlPagamento"  value="{{getValorPagamento()}}">
+                </div>
+            </div>
+            {% endraw %}
+
+
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+    <button class="btn btn-primary" ng-click="pagar()" type="button">Efetivar Pagamento</button>
+</div>
+</div>
+
+
+<script type="text/javascript" src="{{ asset('bundles/orthospaciente/js/pagamento.js') }}"></script>

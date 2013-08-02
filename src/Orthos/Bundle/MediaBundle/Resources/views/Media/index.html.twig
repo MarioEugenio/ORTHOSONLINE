@@ -1,0 +1,55 @@
+
+<div id="header-media" class="modal-header">
+    <button id="closeMedia" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Media Digital <small>(png, jpg, gif)</small></h3>
+</div>
+<div id="body-media" class="modal-body">
+
+    <form>
+        <div id="queue"></div>
+        <input id="file_upload" name="file_upload" type="file" multiple="true">
+    </form>
+
+    <script type="text/javascript">
+        $(function() {
+
+            setTimeout(function () {
+                $('#file_upload').uploadify({
+                    'buttonText' : 'Selecione',
+                    'swf'      : '{{ asset('bundles/coreorthos/swf/uploadify.swf') }}',
+                    'uploader' : baseUrl + '/orthos/media/upload',
+                    method:         'POST',
+                    auto:           true,
+                    wmode:          'transparent',
+                    fileDesc:       '(*.jpg;*.gif;*.png;*.JPG)',
+                    fileExt:        '*.jpg;*.gif;*.png;*.JPG',
+                    'formData'      : {'sqPaciente' : $('#sqPaciente').val() },
+                    multi:          true,
+                    'onUploadSuccess' : function(file, data, response) {
+                        console.log(data);
+                        if (data) {
+                            var data = JSON.parse(data);
+                            if (data.success) {
+                                console.log(JSON.stringify(data.result));
+                            }
+
+                            if (!data.success) {
+                                Modal.growl(data.message, 'error');
+                            }
+                        }
+                    },
+                    'onUploadError' : function(file, errorCode, errorMsg, errorString) {
+                        console.log('The file ' + file.name + ' could not be uploaded: ' + errorString);
+                    }
+                });
+            }, 300);
+
+        });
+    </script>
+
+</div>
+<div id="footer-media" class="modal-footer">
+    <button id="fecharMedia" class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+    <button id="saveMedia" class="btn btn-primary" type="button">Salvar</button>
+</div>
+

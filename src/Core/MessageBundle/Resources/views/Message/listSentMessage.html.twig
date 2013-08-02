@@ -1,0 +1,45 @@
+{% raw %}
+<div id="jMessageList-sent" class="tab-content ng-cloak" ng-controller="Message.MessageListSentCtrl">
+    <div class="tab-pane active" id="jMessage-list-sent" style="overflow: auto;height: 500px;">
+        <div class="tabbable tabs-left form-actions">
+            <div ng-hide="messageSent.length == 0">
+                <div class="nav">
+                    <a class="btn" id="message-trash" ng-click="removeMessage()"><i class="icon-trash"></i></a>
+                    <a class="btn display-none" id="message-inbox"><i class="icon-inbox"></i></a>
+                    <a class="btn " ng-click="returnInbox()" id="message-left"><i class="icon-arrow-left"></i></a>
+                    <a class="btn display-none" id="message-alt"><i class="icon-share-alt"></i></a>
+                </div>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <th><input type="checkbox" ng-model="all" ng-click="selectAllMessages()"></th>
+                    <th>{{'message.label.sent_to'|trans}}</th>
+                    <th>{{'message.label.subject'|trans}}</th>
+                    <th>{{'message.label.date'|trans}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="message in messageSent" style="cursor: pointer;">
+                        <td width="2%">
+                            <input type="checkbox" ng-checked="all" ng-model="checkedMessage[message.co_message]">
+                        </td>
+                        <td width="25%" ng-click="showMessage(message.co_message)">{{message.sent_to}}</td>
+                        <td width="65%" ng-click="showMessage(message.co_message)">{{message.ds_subject}}</td>
+                        <td width="10%" ng-click="showMessage(message.co_message)" nowrap="nowrap">{{message.dt_create}}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p ng-show="messageSent.length == 0">
+                Nenhuma mensagem disponível.
+            </p>
+        </div>
+    </div>
+</div>
+{% endraw %}
+
+{% javascripts filter='?uglifyjs'
+    '@CoreMessageBundle/Resources/public/js/listSentMessage.js'
+    '@CoreMessageBundle/Resources/public/js/listSentMessage_bind.js'%}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}

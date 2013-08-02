@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="core_orthos.listener.before_controller" class="Core\OrthosBundle\EventListener\BeforeControllerListener" scope="request">
+            <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController"/>
+            <argument type="service" id="security.context"/>
+            <argument type="service" id="http_kernel"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="service_container"/>
+        </service>
+
+        <service id="persist.event" class="Core\OrthosBundle\EventListener\EntityListern">
+            <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController"/>
+            <tag name="doctrine.event_listener" event="postPersist" connection="default" />
+            <argument type="service" id="http_kernel"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="service_container"/>
+        </service>
+
+        <service id="CoreUser.UserBusiness" class="Core\OrthosBundle\Business\UsuarioBusiness">
+            <argument type="service" id="service_container"/>
+        </service>
+
+        <service id="Core.EspecialidadeBusiness" class="Core\OrthosBundle\Business\EspecialidadeBusiness">
+            <argument type="service" id="service_container"/>
+        </service>
+
+        <service id="Core.TabelaPrecoBusiness" class="Core\OrthosBundle\Business\TabelaPrecoBusiness">
+            <argument type="service" id="service_container"/>
+        </service>
+
+        <service id="Core.PerfilBusiness" class="Core\OrthosBundle\Business\PerfilBusiness">
+            <argument type="service" id="service_container"/>
+        </service>
+    </services>
+
+</container>

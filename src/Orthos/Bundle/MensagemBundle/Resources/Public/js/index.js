@@ -1,0 +1,3 @@
+function indexMensagemCtrl ($scope, $http) {
+
+}

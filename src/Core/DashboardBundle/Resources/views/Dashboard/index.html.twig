@@ -1,0 +1,26 @@
+<link href="{{ asset('bundles/coreorthos/css/dragDrop.css') }}" rel="stylesheet" type="text/css" />
+<div ng-controller="dashboardCtrl">
+    {% raw %}
+    <div id="drop-esquerda" class="recebeDrag">
+        <div ng-repeat="item in listLeft" id="Div_{{item.sqDashboard}}" class="itemDrag Dashboard-box">
+            <div class="Dashboard-box-titlebar clearfix">
+                <div class="Dashboard-box-title ng-binding">{{item.noDashboard}}</div>
+            </div>
+            <div ng-include src="getUrlDashboard(item)" style="padding:5px;"></div>
+        </div>
+    </div>
+
+
+    <!-- / box drop-esquerda -->
+    <div id="drop-direita" class="recebeDrag">
+        <div ng-repeat="item2 in listRigth" id="Div_{{item2.sqDashboard}}" class="itemDrag Dashboard-box">
+            <div class="Dashboard-box-titlebar clearfix">
+                <div class="Dashboard-box-title ng-binding">{{item2.noDashboard}}</div>
+            </div>
+            <div ng-include src="getUrlDashboard(item2)" style="padding:5px;"></div>
+        </div>
+    </div>
+    {% endraw %}
+</div>
+<script type="text/javascript" src="{{ asset('bundles/coredashboard/js/dashboard.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/externals/dragDrop.js') }}"></script>

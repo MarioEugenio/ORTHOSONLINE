@@ -1,0 +1,12 @@
+<div>
+    <hr><br />
+    <input type="button" value="Sair" ng-click="showModalMessages = false"> | <input type="button" value="Excluir">
+    <hr><br />
+</div>
+<div ng-repeat="message in messages">
+    Enviado por: {{message.my_name}} em <span xys-relative-date="{{message.dt_sent}}"></span><br />
+    Para: {{message.sub_message}}<br />
+    Assunto: {{message.ds_subject}} <input type="button" value="Responder"><br /><br />
+    Mensagem: {{message.ds_message}}<br />
+    <hr>
+</div>

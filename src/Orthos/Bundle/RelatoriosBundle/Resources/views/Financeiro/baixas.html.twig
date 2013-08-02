@@ -1,0 +1,52 @@
+{% extends '::relatorio.html.twig' %}
+
+{% block titleReport %}Relatório de Caixa {{data}}{% endblock %}
+
+{% block body %}
+<table class="table">
+    <thead>
+        <tr class="header">
+            <th>NR.</th>
+            <th>ESPECIALIDADE</th>
+            <th>TIPO PAGAMENTO</th>
+            <th>BOLETA</th>
+            <th>MÊS</th>
+            <th>NOME</th>
+            <th>CRÉDITO</th>
+            <th>DOCUMENTO</th>
+            <th>VALOR</th>
+            <th>DESCONTO(-) MULTA (+)</th>
+            <th>TOTAL</th>
+            <th>USUÁRIO</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for item in list.data %}
+        <tr>
+            <td><strong>{{item.numero}}</strong></td>
+            <td>{{item.especialidade}}</td>
+            <td>{{item.tipo}}</td>
+            <td>{{item.boleta}}</td>
+            <td>{{item.mes}}</td>
+            <td>{{item.nome}}</td>
+            <td>{{item.credito}}</td>
+            <td>{{item.documento}}</td>
+            <td style="background-color: #F1F1F1;">{{item.valor}}</td>
+            <td style="background-color: #F1F1F1;">{{item.desconto}}</td>
+            <td style="background-color: #F1F1F1;">{{item.total}}</td>
+            <td>{{item.usuario}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="8">MOVIMENTO TOTAL DO DIA R$</th>
+            <th>{{list.total}}</th>
+            <th>{{list.desconto}}</th>
+            <th>{{list.totalGeral}}</th>
+            <th></th>
+        </tr>
+    </tfoot>
+</table>
+{% endblock %}

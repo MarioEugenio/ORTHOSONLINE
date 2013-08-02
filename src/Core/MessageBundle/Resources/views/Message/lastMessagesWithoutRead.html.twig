@@ -1,0 +1,34 @@
+{% block content %}
+<link rel="stylesheet" href="{{ asset('bundles/coremessage/css/last_messages.css') }}" type="text/css" media="all"/>
+
+<input type="hidden" id="j-GalleryComment-Last-Values"  value="{{lastMessages|json_encode}}"/>
+{% endblock %}
+
+{% raw %}
+<div xys-ng="MessageLastMessages" ng-controller="MessageLastMessagesCtrl" class="ng-cloak">
+
+    <div ng-repeat="message in lastMessages" class="Message-last-messages-row">
+        <div ng-hide="message.fl_read">
+            <div class="floatLeft">
+                <img ng-src="{{message.user_img_path|asset}}" xys-max-size="50" />
+            </div>
+            <div class="clearfix Message-last-messages-text" ng-click="openModalMessage(message)">
+                <div>
+                    <b>{{message.no_user}}</b>
+                </div>
+                <div>
+                    {{message.ds_subject_origin | trunc:50}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="padding: 10px;" ng-show="lastMessages.length == 0">
+        {{ 'message.last_messages_without_read_empty' | trans}}
+    </div>
+</div>
+
+{% endraw %}
+{% javascripts filter='?uglifyjs'
+    '@CoreMessageBundle/Resources/public/js/lastMessages.js'%}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}

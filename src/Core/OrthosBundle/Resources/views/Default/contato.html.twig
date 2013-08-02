@@ -1,0 +1,23 @@
+<div style="width: 300px;" class="clearfix padding-content">
+    <form ng-controller="contatoCtrl">
+        <div class="bar-button">
+            <h4>Contato Suporte Técnico</h4>
+        </div>
+        {% raw %}
+        <div class="row">
+            <label>* Assunto</label>
+            <input type="text" class="input-xlarge" ng-model="cont.tx_assunto">
+        </div>
+
+        <div class="row">
+            <label>* Texto Contato</label>
+            <textarea rows="4" cols="4" class="input-xlarge" ng-model="cont.tx_contato"></textarea>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-primary" ng-click="enviarContato()">Enviar Mensagem</button>
+        </div>
+        {% endraw %}
+    </form>
+</div>
+
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/default/js/contato.js') }}"></script>

@@ -1,0 +1,54 @@
+<div class="box-shadow-white well">
+    <fieldset>
+        <legend>Cadastro Modelo de Documento</legend>
+
+        {% raw %}
+        <form ng-controller="cadastroModeloDocumentoCtrl" >
+
+            <div class="box">
+                <small>
+                    <span class="add-on"><li class="icon-exclamation-sign"></li></span> Os campos marcados com "*" são de preenchimento obrigatório
+                </small>
+            </div><br>
+
+            <div class="row">
+                <div class="span12">
+                    <label>* Nome Modelo Documento</label>
+                    <input type="text" class="span12" ng-model="form.no_modelo" maxlength="255">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span12">
+                    <label>* Cabeçalho</label>
+                    <textarea editor ng-model="form.tx_header" rows="2" cols="2" class="span12 j-tx-header"></textarea>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span12">
+                    <label>* Corpo</label>
+                    <textarea editor ng-model="form.tx_body" rows="5" cols="5" class="span12 j-tx-body"></textarea>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span12">
+                    <label>* Rodapé</label>
+                    <textarea editor ng-model="form.tx_footer" rows="2" cols="2" class="span12 j-tx-footer"></textarea>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <div class="pull-right">
+                    <button type="button" class="btn">Cancelar</button>
+                    <button type="button" ng-click="submit()" class="btn btn-primary">Salvar</button>
+                </div>
+           </div>
+
+        </form>
+        {% endraw %}
+    </fieldset>
+</div>
+
+<script type="text/javascript" src="{{ asset('bundles/orthosnewslatter/js/cadastroModeloDocumento.js') }}"></script>

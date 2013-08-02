@@ -1,0 +1,106 @@
+<div class="box-shadow-white well">
+    <fieldset>
+        <legend>Cadastro Newslatter</legend>
+        <input type="hidden" id="listModeloDocumento" value="{{listModeloDocumento}}">
+        <input type="hidden" id="listPacientes" value="{{listPaciente}}">
+
+
+        {% raw %}
+        <form ng-controller="cadastroNewslatterCtrl" >
+
+            <div class="box">
+                <small>
+                    <span class="add-on"><li class="icon-exclamation-sign"></li></span> Os campos marcados com "*" são de preenchimento obrigatório
+                </small>
+            </div><br>
+
+            <div class="row">
+                <div class="span12">
+                    <label>* Nome Newslatter</label>
+                    <input type="text" class="span12" ng-model="form.no_newslatter" maxlength="255">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span12">
+                    <label>Descrição</label>
+                    <textarea ng-model="form.tx_descricao" rows="2" cols="2" class="span12"></textarea>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span12">
+                    <label>* Modelo de Documento</label>
+                    <select ng-model="form.sq_modelo_documento" ng-options="item.sqModeloDocumento as item.noModeloDocumento for (sqModeloDocumento, item) in listModeloDocumento"></select>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <div class="pull-right">
+                    <button type="button" class="btn">Cancelar</button>
+                    <button type="button" ng-click="submit()" class="btn btn-primary">Salvar</button>
+                </div>
+           </div>
+
+            <div class="row">
+                <div class="clearfix">
+                    <div class="pull-left">
+                        <small>Selecione os destinatários para envio newslatter</small>
+                    </div>
+
+                    <div class="pull-right">
+                        <ul>
+                            <div class="input-prepend right">
+                                <span class="add-on"><li class="icon-search"></li></span>
+                                <input ng-model="query" placeholder="Pesquisa rápida" type="text">
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" >
+                <!--[if lte IE 9]>
+                <div class="old_ie_wrapper">
+                <!--<![endif]-->
+
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr class="header">
+                            <th><input type="checkbox" ng-model="check"></th>
+                            <th>Matrícula</th>
+                            <th>Nome</th>
+                            <th>Sexo</th>
+                            <th>UF</th>
+                            <th>Cidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in listPacientes |  filter:query">
+                            <td><input type="checkbox" ng-model="check" value="{{item}}"></td>
+                            <td>{{item.nu_matricula}}</td>
+                            <td>{{item.no_paciente}}</td>
+                            <td>{{defineSexo(item)}}</td>
+                            <td>{{item.tx_uf}}</td>
+                            <td>{{item.tx_cidade}}</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+                <!--[if lte IE 9]>
+                </div>
+                <!--<![endif]-->
+
+            </div>
+
+            <div class="form-actions">
+                <button type="button" ng-click="submit()" class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn" ng-click="pesquisa()">Cancelar</button>
+            </div>
+        </form>
+        {% endraw %}
+    </fieldset>
+</div>
+
+<script type="text/javascript" src="{{ asset('bundles/orthosnewslatter/js/cadastro.js') }}"></script>

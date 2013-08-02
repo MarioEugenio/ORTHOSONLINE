@@ -1,0 +1,43 @@
+{% extends '::relatorio.html.twig' %}
+
+{% block titleReport %}Relatório Parcelas{% endblock %}
+
+{% block body %}
+<table class="table">
+    <thead>
+        <tr class="header">
+            <th>NR.</th>
+            <th>MATRÍCULA</th>
+            <th>NOME</th>
+            <th>TELEFONE</th>
+            <th>DATA DE VENCIMENTO</th>
+            <th>VALOR</th>
+            <th>DATA DE PAGAMENTO</th>
+            <th>VALOR DE PAGAMENTO</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for item in list.data %}
+        <tr>
+            <td><strong>{{item.numero}}</strong></td>
+            <td>{{item.matricula}}</td>
+            <td>{{item.nome}}</td>
+            <td>{{item.telefone}}</td>
+            <td>{{item.data_vencimento}}</td>
+            <td style="background-color: #F1F1F1;">{{item.valor}}</td>
+            <td>{{item.data_pagamento}}</td>
+            <td style="background-color: #F1F1F1;">{{item.valor_pagamento}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <th colspan="5">Totalizadores:</th>
+            <th>{{list.total}}</th>
+            <th></th>
+            <th>{{list.totalPagamento}}</th>
+        </tr>
+    </tfoot>
+</table>
+{% endblock %}

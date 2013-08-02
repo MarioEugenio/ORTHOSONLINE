@@ -1,0 +1,162 @@
+<link href="{{ asset('bundles/coreorthos/css/uploadify.css') }}" rel="stylesheet" type="text/css" />
+
+<input type="hidden" id="listProntuario" value="{{listProntuario}}">
+<input type="hidden" id="listProntuarioMedia" value="{{listProntuarioMedia}}">
+
+{% raw %}
+<div ng-controller="prontuarioCtrl" class="clearfix">
+    <div id="prontuario" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="span12" ng-include src="getCadastroProntuario()"></div>
+    </div>
+
+    <div id="media" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+        <div class="span12" ng-include src="templateMedia"></div>
+    </div>
+
+    <div class="bar-button clearfix">
+        <div class="nav nav-pills pull-left box-navbar">
+            <button type="button" ng-disabled="visible.prontuario" ng-click="setVisible(1)" class="btn btn-small"><li class="icon-list"></li> Intervenção</button>
+            <button type="button" ng-disabled="visible.media" ng-click="setVisible(2)" class="btn btn-small"><li class="icon-picture"></li> Documentação <small>( png, gif, jpg )</small></button>
+            <button type="button" ng-disabled="visible.observacao" ng-click="setVisible(3)" class="btn btn-small"><li class="icon-certificate"></li> Evolução</button>
+            <button type="button" ng-disabled="visible.planejamento" ng-click="setVisible(4)" class="btn btn-small"><li class="icon-list"></li> Planejamento</button>
+        </div>
+
+        <!--<div class="pull-right box-navbar input-append">
+            <input type="text" class="date input-small" ng-model="form.dt_inicio" data-date-format="dd/mm/yyyy" bs-datepicker placeholder="Data Inicial">
+            <button type="button" class="btn j-datepicker" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+            <input type="text" class="date input-small" ng-model="form.dt_fim" data-date-format="dd/mm/yyyy" bs-datepicker placeholder="Data Final">
+            <button type="button" class="btn j-datepicker" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+        </div>-->
+
+        <div class="pull-right box-navbar" ng-show="visible.prontuario">
+            <a href="#prontuario" role="button" class="btn btn-primary" data-toggle="modal"><li class="icon-plus-sign icon-white"></li> Adicionar ao Prontuário</a>
+
+           <!-- <div class="btn-group" bs-buttons-radio>
+                <button type="button" class="btn" ng-model="especialidade.ortodontia">Ortodontia</button>
+                <button type="button" class="btn" ng-model="especialidade.clinicaGeral">Clínica Geral</button>
+            </div>-->
+        </div>
+
+        <div class="pull-right box-navbar" ng-show="visible.media">
+            <a href="#media" ng-click="getUploadMedia()" role="button" class="btn btn-primary" data-toggle="modal"><li class="icon-plus-sign icon-white"></li> Adicionar ao Prontuário</a>
+        </div>
+
+        <div class="pull-right box-navbar" ng-show="visible.observacao">
+            <button type="button" class="btn btn-primary"><li class="icon-plus-sign icon-white"></li> Adicionar Observação</button>
+        </div>
+    </div>
+
+    <div class="clearfix" ng-show="visible.planejamento">
+        <div class="row">
+            <div class="span6">
+                <label>Prognóstico</label>
+                <label class="checkbox inline">
+                    <input type="radio" name="prognostico" ui-event="{ blur : 'autosave()' }" ng-model="pront.prognostico.excelente" value="EX"> Excelente
+                </label>
+                <label class="checkbox inline">
+                    <input type="radio" name="prognostico" ui-event="{ blur : 'autosave()' }" ng-model="pront.prognostico.bom" value="BO"> Bom
+                </label>
+                <label class="checkbox inline">
+                    <input type="radio" name="prognostico" ui-event="{ blur : 'autosave()' }" ng-model="pront.prognostico.favoravel" value="FA"> Favorável
+                </label>
+                <label class="checkbox inline">
+                    <input type="radio" name="prognostico" ui-event="{ blur : 'autosave()' }" ng-model="pront.prognostico.duvidoso" value="DU"> Duvidoso
+                </label>
+                <label class="checkbox inline">
+                    <input type="radio" name="prognostico" ui-event="{ blur : 'autosave()' }" ng-model="pront.prognostico.ruim" value="RU"> Ruim
+                </label>
+            </div>
+
+            <div class="span2">
+                <label>Previsão</label>
+                <input type="text" ui-event="{ blur : 'autosave()' }" class="input-mini number" ng-model="pront.nu_previsao"> mes(es)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
+                <label>Diagnóstico</label>
+                <textarea rows="2" ui-event="{ blur : 'autosave()' }" ng-model="pront.tx_diagnostico" cols="2" class="span12"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
+                <label>Plano de Tratamento</label>
+                <textarea rows="2" cols="2" ui-event="{ blur : 'autosave()' }" ng-model="pront.tx_plano_tratamento" class="span12"></textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
+                <label>Sequência Mecânica</label>
+                <textarea rows="2" cols="2" ui-event="{ blur : 'autosave()' }" ng-model="pront.tx_sequencia_mecanica" class="span12"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix" ng-show="visible.observacao">
+        <div class="row">
+            <div class="span12">
+                <label>Convênio</label>
+                <input type="text" ui-event="{ blur : 'autosave()' }" ng-model="pront.tx_convenio" class="span12">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
+                <label>Evolução</label>
+                <textarea rows="2" cols="2" ui-event="{ blur : 'autosave()' }" ng-model="pront.tx_evolucao" class="span12"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix" ng-show="visible.media">
+        <div class="row">
+        <ul class="thumbnails">
+            <li ng-repeat="item in listMedia" class="span2">
+                <div>
+                    <a href="#" ng-click="modalMedia(item)">
+                        <img style="width: 120px" src="/uploads/tmp/{{item.no_arquivo}}">
+                    </a>
+                    <p><small><strong>Data:</strong> {{item.dt_cadastro}}</small></p>
+                </div>
+                <div class="modal fade" style="display:none;padding:10px 10px 10px 10px;" id="img_{{item.sq_imagem}}">
+                    <div class="row"><img src="/uploads/tmp/{{item.no_arquivo}}"></div>
+                    <div class="row"><small class="left"><strong>Data:</strong> {{item.dt_cadastro}}</small></div>
+                </div>
+            </li>
+        </ul>
+        </div>
+    </div>
+
+    <div class="clearfix" ng-show="visible.prontuario">
+        <div class="row">
+            <div class="span12">
+                <label>Alerta Médico</label>
+                <textarea rows="2" cols="2" ui-event="{ blur : 'autosave()' }" ng-class="classPlanoTratamento()" ng-model="pront.tx_alerta_medico" class="span12"></textarea>
+            </div>
+        </div>
+
+        <table id="GridProntuario" class="table table-bordered table-hover table-striped" cellspacing="0" cellpadding="0" border="0">
+            <thead>
+            <tr>
+                <th>Data</th>
+                <th>Procedimento(s) Realizado(s)</th>
+                <th>Próximo(s) Procedimento(s)</th>
+                <th>Atendente</th>
+                <th>Observação</th>
+                <th>Publicado Por</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endraw %}
+<script type="text/javascript" src="{{ asset('bundles/orthospaciente/js/prontuario.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/externals/jquery.uploadify.js') }}"></script>

@@ -1,0 +1,34 @@
+<div class="clearfix padding-content">
+    <form ng-controller="enviarMensagemCtrl">
+        <div class="row">
+            <div class="span12">
+                <label>Tipo de Envio</label>
+                <div class="btn-group" bs-buttons-radio>
+                    <button type="button" class="btn" ng-model="msg.sms">SMS</button>
+                    <button type="button" class="btn" ng-model="msg.email">E-mail</button>
+                    <button type="button" class="btn" ng-model="msg.sms_email">SMS / E-mail</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
+                <label>Assunto</label>
+                <input type="text" class="span12" ng-model="msg.tx_assunto" maxlength="100" placeholder="Digite o assunto da mensagem">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
+                <label>Mensagem</label>
+                <textarea ng-model="msg.tx_mensagem" class="span12" rows="4" cols="4" placeholder="Digite o texto da mensagem"></textarea>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="button" ng-click="submit()" class="btn btn-primary">Enviar Mensagem</button>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" src="{{ asset('bundles/orthospaciente/js/enviarMensagem.js') }}"></script>

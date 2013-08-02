@@ -1,0 +1,37 @@
+{% extends '::relatorio.html.twig' %}
+
+{% block title %}Relatório Teste PDF{% endblock %}
+
+{% block body %}
+<table class="table">
+    <thead>
+        <tr class="header">
+            <th>Data</th>
+            <th>Categoria</th>
+            <th>Fornecedor</th>
+            <th>Tipo Lançamento</th>
+            <th>Nº Documento</th>
+            <th>Observações</th>
+            <th>Crédito (R$)</th>
+            <th>Débito (R$)</th>
+            <th>Saldo (R$)</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for item in list %}
+        <tr>
+            <td>werwrew</td>
+            <td>werrewrew</td>
+            <td>werwerew</td>
+            <td>ewrewrew</td>
+            <td>ewrewrewr</td>
+            <td>werewrewr</td>
+            <td>ewrewrew</td>
+            <td>ewrewrewr</td>
+            <td>werewrewrew</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

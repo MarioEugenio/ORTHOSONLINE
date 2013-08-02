@@ -1,0 +1,83 @@
+message:
+  sent_success: Mensaje enviado con éxito
+  contact:
+    name: Digite el nombre del contacto.
+  remove:
+    success: Mensaje removida con éxito
+    exclude: Excluir
+  reply:
+    one: Responder
+    all: Responder a todos
+    validate:
+      subjectError: El Asunto del Mensaje no puede ser alterado
+      messageReplyNotFound: No fue encontrado el mensaje para respuesta
+  inbox:
+    label: Caja de Entrada
+    from: De
+    to: A
+    on: en
+  hitText:
+    label: Digite el nombre del destinatario
+  searchingText:
+    label: Buscando...
+  noResultsText:
+    label: No fue encontrado ningún resultado
+  searching:
+    label: Buscando...
+  sent:
+    label: Enviados
+    notification: %noUser% le envió un mensaje
+  draft:
+    label: Proyectos
+  trash:
+    label: Papelera
+  write:
+    label: Escribir
+  subject:
+    label: Asunto
+  receiver:
+    label: Destinatario(s)
+  message:
+    label: Mensaje
+  for:
+    label: Para
+  send:
+    label: Enviar
+  discard:
+    label: Descartar
+  cancel:
+    label: Cancelar
+  validate:
+    subject: El campo asunto es de relleno obligatorio
+    empty_message: El campo mensaje es de relleno obligatorio
+    users: Necesario seleccionar por lo menos un destinatario
+    date: Fecha de creación es obligatoria
+    read: Es necesario decir si el mensaje fue leído
+    success: El mensaje fue enviado con éxito
+    error: Ocorrió un error al enviar el mensaje
+    subject_limit: El tamaño máximo para el asunto fue excedido
+  new:
+    label: Nuevo Mensaje
+  label:
+    sent_to: Enviado Para
+    subject: Asunto
+    date: Fecha
+    sent_from: Enviado Por
+    messages: Mensajes
+  search:
+    label: Buscar
+    tooltip:
+      to: Rellene con el nombre de quien envió
+      from: Rellene con el nombre de quien recibió
+      subject: Rellene con el asunto
+      message: Rellene con el fragmento del mensaje
+    form:
+      to: De
+      from: Para
+      subject: Sujeto
+      message: Mensaje de texto
+      date_send: Fecha de envío
+      date_received: Fecha de recepción
+  last_messages_without_read_empty: No existen mensajes.
+  no_messages_found: Ningun mensaje encontrado.
+  no_select: Seleccione al menos un mensaje

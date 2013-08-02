@@ -1,0 +1,37 @@
+{% extends '::relatorio.html.twig' %}
+
+{% block titleReport %}Relação de Inadimplência - {{status}}{% endblock %}
+
+{% block body %}
+<table class="table">
+    <thead>
+    <tr class="row-header">
+        <th>NR.</th>
+        <th>CONTRATO</th>
+        <th>NOME</th>
+        <th>TELEFONE</th>
+        <th>MÊS(ES)</th>
+        <th>VALOR</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for item in list.data %}
+    <tr>
+        <td><strong>{{item.numero}}</strong></td>
+        <td>{{item.contrato}}</td>
+        <td>{{item.nome}}</td>
+        <td>{{item.telefone}}</td>
+        <td>{{item.meses}}</td>
+        <td style="background-color: #F1F1F1;"><strong>{{item.total}}</strong></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr class="row-footer">
+            <th colspan="5"></th>
+            <th>{{list.totalGeral}}</th>
+        </tr>
+    </tfoot>
+</table>
+{% endblock %}

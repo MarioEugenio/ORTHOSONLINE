@@ -1,0 +1,52 @@
+<div class="box-shadow-white well">
+<fieldset>
+    <legend>Pesquisar Usuário</legend>
+    {% raw %}
+    <form class="form-inline" ng-controller="indexUsuarioCtrl">
+        <div class="box" style="margin-bottom: 10px;">
+            <h5>Filtros para pesquisa</h5>
+            <input type="text" ng-model="search.noUsuario" class="input-xlarge" placeholder="Nome do usuário">
+            <input type="text" ng-model="search.dsEmail" class="input-xxlarge" placeholder="E-mail do usuário">
+            <button type="button" class="btn btn-primary" ng-click="pesquisar()"><li class="icon-search icon-white"></li>&nbsp;Pesquisar</button>
+            <button type="button" class="btn btn-primary" ng-click="cadastrar()"><li class="icon-user icon-white"></li>&nbsp;Cadastrar Usuário</button>
+        </div>
+
+        <div class="clearfix">
+            <div class="pull-right">
+                <ul>
+                    <div class="input-prepend right">
+                        <span class="add-on"><li class="icon-search"></li></span>
+                        <input ng-model="query" placeholder="Pesquisa rápida" type="text">
+                    </div>
+                </ul>
+            </div>
+
+            <table class="table table-bordered table-hover table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="info" ng-show="listUsuario.length == 0">
+                        <td colspan="3"><li class="icon-info-sign"></li>&nbsp;<strong>Não há retorno de registos</strong></td>
+                    </tr>
+
+                    <tr ng-repeat="item in listUsuario | filter:query">
+                        <td>{{item.no_usuario}}</td>
+                        <td>{{item.ds_email}}</td>
+                        <td class="span2">
+                            <button type="button" class="btn" ng-click="editar(item.sq_usuario)"><li class="icon-edit"></li></button>
+                            <button type="button" class="btn" ng-click="remover(item.sq_usuario, $index)"><li class="icon-remove-sign"></li></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+    {% endraw %}
+</fieldset>
+</div>
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/Usuario/js/index.js') }}"></script>

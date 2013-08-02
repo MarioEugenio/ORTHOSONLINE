@@ -1,0 +1,57 @@
+<input type="hidden" id="listFinanceiro" value="{{listFinanceiro}}">
+<div id="myAngularApp" ng-controller="financeiroCtrl" class="clearfix">
+    <div class="bar-button clearfix">
+        <div class="nav nav-pills pull-left box-navbar">
+            <button type="button" ng-click="negociarDivida()" class="btn btn-small"><li class="icon-ok-circle"></li> Negociação de Dívida</button>
+            <button type="button" ng-click="removerParcelas()" class="btn btn-small"><li class="icon-trash"></li> Remover Parcela(s)</button>
+        </div>
+
+        <!--<div class="pull-right box-navbar input-append">
+            <input type="text" class="date input-small" ng-model="form.dt_inicio" data-date-format="dd/mm/yyyy" bs-datepicker placeholder="Data Inicial">
+            <button type="button" class="btn j-datepicker" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+            <input type="text" class="date input-small" ng-model="form.dt_fim" data-date-format="dd/mm/yyyy" bs-datepicker placeholder="Data Final">
+            <button type="button" class="btn j-datepicker" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+        </div>-->
+
+        <div class="pull-right box-navbar input-append">
+            <div class="btn-group" bs-buttons-radio>
+                <button type="button" class="btn" ng-click="statusParcela('A')" ng-model="status.atraso">Em Atraso</button>
+                <button type="button" class="btn" ng-click="statusParcela('V')" ng-model="status.avencer">A Vencer</button>
+                <button type="button" class="btn" ng-click="statusParcela('T')" ng-model="status.todas">Todas</button>
+            </div>
+        </div>
+
+    </div>
+    <table id="GridFinanceiro" class="table table-bordered table-hover table-striped" cellspacing="0" cellpadding="0" border="0">
+        <thead>
+        <tr>
+            <th></th>
+            <th style="width: 120px;"></th>
+            <th>Atr.</th>
+            <th>Ch.D.</th>
+            <th>Especialidade</th>
+            <th>Data Vencimento</th>
+            <th>Data Pagamento</th>
+            <th>Valor Pag.</th>
+            <th>Valor</th>
+            <th>Dias em Atraso</th>
+            <th>Valor Corrigido</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <div id="pagamento" class="modal hide fade">
+        <div ng-include src="parcela"></div>
+    </div>
+
+    <div id="negociacao" class="modal hide fade">
+        <div ng-include src="negociacao"></div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript" src="{{ asset('bundles/orthospaciente/js/financeiro.js') }}"></script>

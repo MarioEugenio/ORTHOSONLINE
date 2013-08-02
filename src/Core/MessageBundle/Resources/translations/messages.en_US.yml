@@ -1,0 +1,83 @@
+message:
+   sent_success: Message sent successfully
+   contact:
+     name: Enter the name of the contact.
+   remove:
+     success: Message successfully removed
+     exclude: Remove
+   reply:
+     one: Reply
+     all: Reply to all
+     validate:
+       subjectError: The Subject of the Post cannot be changed
+       messageReplyNotFound: The message to the reply was not found
+   inbox:
+     label: Inbox
+     from: From
+     to: For
+     on: on
+   hitText:
+     label: Type the recipient's name
+   searchingText:
+     label: Searching...
+   noResultsText:
+     label: No results were found
+   searching:
+     label: Searching ...
+   sent:
+     label: Sent
+     notification: %noUser%  sent you a message
+   draft:
+     label: Drafts
+   trash:
+     label: Trash
+   write:
+     label: Write
+   subject:
+     label: Subject
+   receiver:
+     label: Recipient (s)
+   message:
+     label: Message
+   for:
+     label: To
+   send:
+     label: Send
+   discard:
+     label: Discard
+   cancel:
+     label: Cancel
+   validate:
+     subject: The subject field is required
+     empty_message: The message field is required
+     users: You Need to select at least one recipient
+     date: Creation date is mandatory
+     read: It must be said if the message was read
+     success: The message was sent successfully
+     error: An error occurred while sending the message
+     subject_limit: The maximum size for the subject has been exceeded
+   new:
+     label: New Message
+   label:
+     sent_to: Sent To
+     subject: Subject
+     date: Date
+     sent_from: Sent by
+     messages: Messages
+   search:
+     label: Search
+     tooltip:
+       to: Fill in  with the name of the sender
+       from: Fill in with the name of the receiver
+       subject: Fill in with the subject
+       message: Fill in with the words of the message
+     form:
+       to: To
+       from: From
+       subject: Subject
+       message: Message text
+       date_send: Date send
+       date_received: Date received
+   last_messages_without_read_empty: There are no messages.
+   no_messages_found: No messages found.
+   no_select: Select at least one message

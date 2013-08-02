@@ -1,0 +1,27 @@
+<input type="hidden" id="listIndicacao" value="{{listIndicacao}}">
+<div ng-controller="indicacaoCtrl" class="clearfix">
+    <!--<div class="bar-button clearfix">
+        <div class="pull-right box-navbar input-append">
+            <input type="text" class="date input-small" ng-model="form.dt_inicio" data-date-format="dd/mm/yyyy" bs-datepicker placeholder="Data Inicial">
+            <button type="button" class="btn j-datepicker" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+            <input type="text" class="date input-small" ng-model="form.dt_fim" data-date-format="dd/mm/yyyy" bs-datepicker placeholder="Data Final">
+            <button type="button" class="btn j-datepicker" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+        </div>
+    </div>-->
+    <table id="GridIndicacao" class="table table-bordered table-hover table-striped" cellspacing="0" cellpadding="0" border="0">
+        <thead>
+        <tr>
+            <th>Data / Hora</th>
+            <th>Indicação</th>
+            <th>E-mail</th>
+            <th>Telefone Residêncial</th>
+            <th>Telefone Celular</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript" src="{{ asset('bundles/orthospaciente/js/indicacao.js') }}"></script>

@@ -1,0 +1,25 @@
+<div class="box-shadow-white well">
+    <fieldset>
+        <legend>Relatório Receitas</legend>
+
+        <form method="POST" target="_blank" action="/web/relatorio/bind/financeiro/receitas">
+            <div class="box clearfix" >
+                <div style="margin-top: 15px;" class="row">
+                    <div class="span3">
+                        <div class="control-group">
+                            <label>Mês/Ano</label>
+                            <div class="controls">
+                                <input type="text" class="input-mini" id="mes" name="mes" maxlength="2" number placeholder="Digite mês" >
+                                <input type="text" class="input-small" id="ano" name="ano" maxlength="4" number placeholder="Digite ano" >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="span2 marginTopButton">
+                        <button type="submit" class="btn btn-primary">Gerar Relatório</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </fieldset>
+</div>

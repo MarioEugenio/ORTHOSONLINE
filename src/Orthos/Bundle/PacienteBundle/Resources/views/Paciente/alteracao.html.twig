@@ -1,0 +1,220 @@
+<div class="box-shadow-white well">
+<fieldset>
+    <legend>Paciente</legend>
+
+    <input type="hidden" id="paciente" value="{{paciente}}">
+    <input type="hidden" id="status" value="{{status}}">
+    <input type="hidden" id="listConvenios" value="{{convenios}}">
+    <input type="hidden" id="convenioPaciente" value="{{convenioPaciente}}">
+
+    {% raw %}
+    <form ng-controller="alteracaoPacienteCtrl">
+        <input type="hidden" class="j-sqPaciente" ng-model="paciente.sq_paciente" />
+
+        <div class="navbar">
+            <div class="navbar-inner">
+                <a href="#" class="brand">Serviços ao Paciente</a>
+                <div class="nav-collapse pull-right">
+                    <ul class="nav">
+                        <li class="divider-vertical"></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" ng-click="setIndicacao()" data-toggle="dropdown"><span class="icon-hand-right"></span> Indicação <b class="caret"></b></a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                <li>
+                                    <div ng-include src="indicacao"></div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" ng-click="setTransferencia()" data-toggle="dropdown"><span class="icon-share"></span> Transferência <b class="caret"></b></a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                <li>
+                                    <div ng-include src="transferencia"></div>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--<li><a href="#"><span class="icon-check"></span> Tarefas</a></li>-->
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" ng-click="setEnviarMensagem()" data-toggle="dropdown"><span class="icon-envelope"></span> Enviar Mensagem <b class="caret"></b></a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                                <li>
+                                    <div ng-include src="mensagem"></div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#orcamento" ng-click="setOrcamento()" role="button" data-toggle="modal"><span class="icon-plus-sign"></span> Orçamento</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix">
+            <div class="row">
+                <div class="span12">
+                    <label>Nome do Paciente</label>
+                    <input type="text" ng-model="paciente.no_paciente" class="span12" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="span3">
+                    <label>Matrícula</label>
+                    <input type="text" ng-model="paciente.nu_matricula" readonly="readonly" />
+                </div>
+
+                <div class="span5">
+                    <label>Convênio</label>
+                    <select class="span12" ng-model="paciente.sq_convenio" ng-options="item.sqConvenio as item.noConvenio for (sqConvenio, item) in convenio"></select>
+                </div>
+
+                <div class="span4">
+                    <label>Status</label>
+                    <select ng-model="paciente.sq_paciente_status" class="span12" ng-options="item.sq_paciente_status as item.no_status for (sq_paciente_status, item) in statusPacience"></select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span8">
+                    <label>E-mail</label>
+                    <input type="text" ng-model="paciente.ds_email" class="span12" />
+                </div>
+                <div class="span4">
+                    <label>CPF</label>
+                    <input type="text" ng-model="paciente.nu_cpf" id="nu_cpf" maxlength="20" class="span12 cpf j-cpf" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span4 input-append">
+                    <label>Data de Nascimento</label>
+                    <input type="text" class="date" ng-model="paciente.dt_nascimento" data-date-format="dd/mm/yyyy" bs-datepicker>
+                    <button type="button" class="btn j-datepicker" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+                </div>
+                <div class="span4">
+                    <label>Sexo</label>
+                    <div class="btn-group" bs-buttons-radio>
+                        <button type="button" class="btn" ng-model="sexo.masculino">Masculino</button>
+                        <button type="button" class="btn" ng-model="sexo.feminino">Feminino</button>
+                    </div>
+                </div>
+                <div class="span4">
+                    <label>Estado Civil</label>
+                    <div class="btn-group" bs-buttons-radio>
+                        <button type="button" class="btn" ng-model="estCivil.Casado">Casado</button>
+                        <button type="button" class="btn" ng-model="estCivil.Solteiro">Solteiro</button>
+                        <button type="button" class="btn" ng-model="estCivil.Viuvo">Viúvo</button>
+                        <button type="button" class="btn" ng-model="estCivil.Divorciado">Divorciado</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span4">
+                    <label>RG</label>
+                    <input type="text" class="span12" ng-model="paciente.nu_rg" />
+                </div>
+                <div class="span4">
+                    <label>Orgão Expeditor</label>
+                    <input type="text" class="span12" ng-model="paciente.ds_orgao_expeditor" />
+                </div>
+                <div class="span4">
+                    <label>Deseja Contato?</label>
+                    <div class="btn-group" bs-buttons-radio>
+                        <button type="button" class="btn" ng-model="contato.sim">Sim</button>
+                        <button type="button" class="btn" ng-model="contato.nao">Não</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span5">
+                    <label>Endereço</label>
+                    <input type="text" ng-model="paciente.tx_endereco" class="span12" />
+                </div>
+                <div class="span3">
+                    <label>Bairro</label>
+                    <input type="text" ng-model="paciente.tx_cidade" class="span12" />
+                </div>
+                <div class="span2">
+                    <label>UF</label>
+                    <input type="text" ng-model="paciente.tx_uf" class="span12" />
+                </div>
+                <div class="span2">
+                    <label>Nº</label>
+                    <input type="text" ng-model="paciente.nu_endereco" class="span12" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span4">
+                    <label>Complemento</label>
+                    <input type="text" ng-model="paciente.tx_complemento" class="span12" />
+                </div>
+                <div class="span4">
+                    <label>Telefone Residêncial</label>
+                    <input type="text" ng-model="paciente.nu_residencial" class="span12 fone j-fone-residencial" />
+                </div>
+                <div class="span4">
+                    <label>Telefone Celular</label>
+                    <input type="text" ng-model="paciente.nu_celular" class="span12 fone j-fone-celular" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span4">
+                    <label>Empresa em que trabalha</label>
+                    <input type="text" ng-model="paciente.no_trabalho_empresa" class="span12" />
+                </div>
+                <div class="span4">
+                    <label>Endereço da empresa</label>
+                    <input type="text" ng-model="paciente.tx_endereco_empresa" class="span12" />
+                </div>
+                <div class="span4">
+                    <label>Profissão</label>
+                    <input type="text" ng-model="paciente.no_profissao" class="span12" />
+                </div>
+            </div>
+
+            <fieldset>
+                <legend>Responsável</legend>
+                <div class="row">
+                    <div class="span10">
+                        <label>Nome do Responsável</label>
+                        <input type="text" ng-model="paciente.no_responsavel" class="span12" />
+                    </div>
+
+                    <div class="span2">
+                        <label>CPF do Responsável</label>
+                        <input type="text" ng-model="paciente.nu_cpf_responsavel" maxlength="20" id="nu_cpf_responsavel" class="span12 cpf j-cpf-responsavel" />
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" ng-click="submit()">Salvar</button>
+                <button type="button" class="btn" ng-click="pesquisar()">Cancel</button>
+            </div>
+        </div>
+
+        <div class="clearfix">
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#templates" ng-click="setTemplate(1)" data-toggle="tab">Prontuário</a></li>
+                <li><a href="#templates" ng-click="setTemplate(0)" data-toggle="tab">Consultas</a></li>
+                <li><a href="#templates" ng-click="setTemplate(2)" data-toggle="tab">Financeiro <small ng-show="listParcelas.length" class="badge badge-warning">{{listParcelas.length}}</small></a></li>
+                <li><a href="#templates" ng-click="setTemplate(3)" data-toggle="tab">Mensagens</a></li>
+                <li><a href="#templates" ng-click="setTemplate(4)" data-toggle="tab">Indicações</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="templates" ng-include src="template.url"></div>
+            </div>
+        </div>
+
+        <div id="orcamento" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div ng-include src="orcamento"></div>
+        </div>
+    </form>
+    {% endraw %}
+
+</fieldset>
+</div>
+<script type="text/javascript" src="{{ asset('bundles/orthospaciente/js/alteracao.js') }}"></script>

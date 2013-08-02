@@ -1,0 +1,46 @@
+<div class="clearfix padding-content">
+    <form ng-controller="indicarCtrl">
+        <input type="hidden" id="clinicas" value="{{clinicas}}">
+        {% raw %}
+            <div class="row">
+                <div class="span12">
+                    <label><small>* Clínica</small></label>
+                    <select ng-model="ind.sq_clinica" ng-options="cli.sqClinica as cli.noClinica for cli in listClinica" placeholder="Selecione"></select>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span12">
+                    <label><small>* Nome</small></label>
+                    <input type="text" ng-model="ind.no_paciente" placeholder="Nome do indicado">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span12">
+                    <label><small>E-mail</small></label>
+                    <input type="text" ng-model="ind.ds_email" placeholder="E-mail do indicado">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span12">
+                    <label><small>Telefone</small></label>
+                    <input type="text" class="fone j-telefone" ng-model="ind.nu_telefone">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span12">
+                    <label><small>Celular</small></label>
+                    <input type="text" class="fone j-celular" ng-model="ind.nu_celular">
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-primary" ng-click="submit()">Salvar Indicação</button>
+            </div>
+        {% endraw %}
+    </form>
+</div>
+
+<script type="text/javascript" src="{{ asset('bundles/orthospaciente/js/indicar.js') }}"></script>

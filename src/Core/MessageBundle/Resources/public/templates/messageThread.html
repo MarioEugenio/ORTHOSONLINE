@@ -1,0 +1,40 @@
+<input type="hidden" value="{{app.session.get('user')[0]['co_user']['co_user']}}" id="co_user">
+<input type="hidden" value="{{app.session.get('user')[0]['co_user']['no_user']}}" id="no_user">
+<div class="accordion">
+    <div class="accordion-group" ng-repeat="message in messagesThread">
+        <div class="accordion-heading" ng-click="showMessageToggle(message)" style="cursor: pointer;">
+            <div class="marginTop10 marginLeft10">
+                <div class="floatLeft">
+                    <img ng-src="{{message.no_image_profile}}" xys-max-size="50"/>
+                </div>
+                <div class="clearfix Message-last-messages-text">
+                    <div>
+                        <b>{{'message.label.sent_from'|trans}}: </b>{{message.no_user}} {{'message.inbox.on'|trans}}
+                        <span xys-relative-date="{{message.dt_sent}}" xys-tipsy data-placement="bottom" title="{{message.dt_sent}}"></span>
+                        <br>
+                        <b>{{'message.label.sent_to'|trans}}: </b> {{listUsersSent(message)}}
+                    </div>
+                    <div ng-show="$first">
+                        <b>{{'message.label.subject'|trans}}: </b>{{message.ds_subject}}
+                    </div>
+                </div>
+            </div>
+
+            <div style="position: relative; float: right; top:-40px; right: 10px">
+                <div>
+                    <button class="btn" ng-click="replyAll(message)" xys-tipsy title="{{'message.reply.all'|trans}}"
+                            data-placement="bottom"><i class="icon-share-alt"></i></button>
+                    <button class="btn" ng-click="reply(message)" xys-tipsy title="{{'message.reply.one'|trans}}"
+                            data-placement="bottom"><i class="icon-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div ng-show="setOpen(message, $last)" class="padding10" style="white-space:pre-line">
+            <hr>
+            {{message.ds_message}}
+        </div>
+    </div>
+    <div ng-show="replyData">
+        <div xys-message-box users-to="usersReply" reply="replyData" subject="ds_subject"></div>
+    </div>
+</div>

@@ -1,0 +1,126 @@
+<div ng-controller="negociacaoCtrl">
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Negociação de Dívida</h3>
+</div>
+<div class="modal-body">
+    <div class="clearfix padding-content">
+        <form >
+            <input id="parcelas" type="hidden" value="{{parcelas}}">
+            {% raw %}
+            <div class="row">
+                <div class="span4">
+                    <label>* Data de Vencimento</label>
+                    <input type="text" class="date span12 j-data" ng-model="neg.dt_vencimento" data-date-format="dd/mm/yyyy" bs-datepicker>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span2">
+                    <label>* Nº Parc.</label>
+                    <input type="text" class="span12 number" maxlength="3" ng-model="neg.nu_parcelas">
+                </div>
+                <div class="span3">
+                    <label>R$ Desconto</label>
+                    <input type="text" ng-model="neg.vl_desconto" class="span12 number j-desconto">
+                </div>
+                <div class="span4">
+                    <label>* Valor Parcelado</label>
+                    <input type="text" class="span12" readonly="readonly" value="{{getValorParcelado()}}" >
+                </div>
+                <div class="span3">
+                    <label>Valor Total</label>
+                    <input type="text" class="span12 j-total" readonly="readonly" value="{{getTotal()}}">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span12">
+                    <label>* Forma de Pagamento</label>
+                    <div class="btn-group" bs-buttons-radio>
+                        <button type="button" ng-click="cartao = false" class="btn" ng-model="pag.boleto">Boleto</button>
+                        <button type="button" ng-click="cartao = true" class="btn" ng-model="pag.cartao_credito">Cartao de Crédito</button>
+                        <button type="button" ng-click="cartao = true" class="btn" ng-model="pag.cartao_debito">Cartao de Débito</button>
+                        <button type="button" ng-click="cartao = false" class="btn" ng-model="pag.cheque">Cheque</button>
+                        <button type="button" ng-click="cartao = false" class="btn" ng-model="pag.dinheiro">Dinheiro</button>
+                    </div>
+                </div>
+            </div><br>
+
+            <div ng-show="cartao" class="row box clearfix">
+                <div class="span12">
+                    <label>* Informações do cartão</label>
+                    <input type="text" class="input-xlarge" placeholder="Titular do cartão">
+                    <input type="text" class="input-medium" placeholder="Nº do cartão">
+                    <input type="text" class="input-medium" placeholder="Dígito de segurança">
+                    <p>
+                    <div class="btn-group" bs-buttons-radio>
+                        <button type="button" class="btn" ng-model="pag.cartao_visa">Visa</button>
+                        <button type="button" class="btn" ng-model="pag.cartao_master">Master</button>
+                    </div>
+                    </p>
+                </div>
+
+            </div><br>
+
+            <div ng-show="pag.cheque" class="row box clearfix">
+                <div class="span12">
+                    <label>* Informações do cheque</label>
+                    <input type="text" class="input-xlarge" placeholder="Nº do Documento">
+                    <div class="input-append">
+                        <input type="text" class="date input-medium" placeholder="Data pré datado">
+                        <button type="button" class="btn j-datepicker" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+                    </div>
+
+                </div>
+
+            </div><br>
+
+            <div class="row">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                    <tr class="header">
+                        <th></th>
+                        <th>Nº</th>
+                        <th>Data Venc.</th>
+                        <th>Valor</th>
+                        <th>Atraso</th>
+                        <th>Valor Corr.</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr class="info" ng-show="parcelas.length == 0">
+                        <td colspan="10"><li class="icon-info-sign"></li>&nbsp;<strong>Não há retorno de registros</strong></td>
+                    </tr>
+
+                    <tr ng-repeat="item in parcelas" ng-show="parcelas.length">
+                        <td><button type="button" class="btn" ng-click="removerParcela($index)"><li class="icon-trash"></li></button></td>
+                        <td class="span1">{{item.nuParcela}}</td>
+                        <td>{{formataData(item.dtVencimento)}}</td>
+                        <td>{{item.vlParcela}}</td>
+                        <td>{{getDiasAtrasosNegociacao(item.dtVencimento)}}</td>
+                        <td>{{getValorCorrigidoNegociacao(item.vlParcela, item.dtVencimento)}}</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="header">
+                            <td class="text-right" colspan="5"><strong>Total:</strong></td>
+                            <td><strong>{{getTotal()}}</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            {% endraw %}
+
+
+        </form>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+    <button class="btn btn-primary" ng-click="efetivarNegociacao()" type="button">Efetivar Negociação</button>
+</div>
+</div>
+
+<script type="text/javascript" src="{{ asset('bundles/orthospaciente/js/negociacao.js') }}"></script>

@@ -1,0 +1,47 @@
+{% extends '::relatorio.html.twig' %}
+
+{% block titleReport %}Receita em {{mes}}{% endblock %}
+
+{% block body %}
+<table class="table">
+    <thead>
+    <tr class="row-header">
+        <th>Dia</th>
+        <th>DINHEIRO R$</th>
+        <th>CHEQUE R$</th>
+        <th>DÉBITO R$</th>
+        <th>CRÉDITO R$</th>
+        <th>BANCO R$</th>
+        <th>Á RECEBER R$</th>
+        <th>TOTAL R$</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for item in list.data %}
+    <tr>
+        <td><strong>{{item.dia}}</strong></td>
+        <td>{{item.dinheiro}}</td>
+        <td>{{item.cheque}}</td>
+        <td>{{item.debito}}</td>
+        <td>{{item.credito}}</td>
+        <td>{{item.banco}}</td>
+        <td>{{item.a_receber}}</td>
+        <td style="background-color: #F1F1F1;"><strong>{{item.total}}</strong></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr class="row-footer">
+            <th>TOTAL R$</th>
+            <th>{{list.total_dinheiro}}</th>
+            <th>{{list.total_cheque}}</th>
+            <th>{{list.total_debito}}</th>
+            <th>{{list.total_credito}}</th>
+            <th>{{list.total_banco}}</th>
+            <th>{{list.total_a_receber}}</th>
+            <th>{{list.total}}</th>
+        </tr>
+    </tfoot>
+</table>
+{% endblock %}

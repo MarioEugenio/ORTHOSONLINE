@@ -1,0 +1,30 @@
+<div class="box-shadow-white well">
+    <fieldset>
+        <legend>Relatório Receitas</legend>
+
+        <form method="POST" target="_blank" action="/web/relatorio/bind/financeiro/inadimplencia">
+
+            <div class="box clearfix" >
+                <div style="margin-top: 15px;" class="row">
+                    <div class="span3">
+                        <div class="control-group">
+                            <label>Situação</label>
+                            <div class="controls">
+                                <select id="sq_paciente_status" name="sq_paciente_status" class="span12">
+                                    <option>Selecione ...</option>
+                                    {% for item in list %}
+                                    <option value="{{item.sq_paciente_status}}">{{item.no_status}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="span2 marginTopButton">
+                        <button type="submit" class="btn btn-primary">Gerar Relatório</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </fieldset>
+</div>

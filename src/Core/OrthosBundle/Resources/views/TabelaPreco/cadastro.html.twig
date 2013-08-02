@@ -1,0 +1,74 @@
+<div class="box-shadow-white well">
+<fieldset>
+    <legend>Cadastro Tabela de Preços</legend>
+    <input type="hidden" id="tabelaPreco" value="{{tabelaPreco}}">
+    {% raw %}
+    <form ng-controller="cadastroTabelaPrecoCtrl" class="form-horizontal">
+        <input type="hidden" ng-model="form.sq_tabela_preco">
+
+        <div class="box control-group">
+            <small>
+                <span class="add-on"><li class="icon-exclamation-sign"></li></span> Os campos marcados com "*" são de preenchimento obrigatório
+            </small>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">* Especialidade</label>
+            <div class="controls">
+                <div class="btn-group" bs-buttons-radio>
+                    <button type="button" class="btn" ng-model="especialidade.ortodontia">Ortodontia</button>
+                    <button type="button" class="btn" ng-model="especialidade.clinicaGeral">Clínica Geral</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">* Aparelho Ortodôntico?</label>
+            <div class="controls">
+                <div class="btn-group" bs-buttons-radio>
+                    <button type="button" class="btn" ng-model="aparelho.sim">Sim</button>
+                    <button type="button" class="btn" ng-model="aparelho.nao">Não</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">* Nome Procedimento</label>
+            <div class="controls">
+                <input type="text" class="input-xlarge" ng-model="form.no_procedimento" maxlength="100">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Descrição</label>
+            <div class="controls">
+                <input type="text" class="input-xxlarge" ng-model="form.ds_procedimento" maxlength="255">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">* Valor</label>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on">R$</span>
+                    <input type="text" class="input-medium money" ng-model="form.vl_total">
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Descrição do Plano</label>
+            <div class="controls">
+                <input type="text" class="input-xxlarge" ng-model="form.ds_plano" maxlength="255">
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="button" ng-click="submit()" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btn" ng-click="pesquisa()">Cancelar</button>
+        </div>
+    </form>
+    {% endraw %}
+</fieldset>
+</div>
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/TabelaPreco/js/cadastro.js') }}"></script>

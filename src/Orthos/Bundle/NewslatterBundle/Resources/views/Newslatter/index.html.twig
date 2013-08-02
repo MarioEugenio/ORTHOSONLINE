@@ -1,0 +1,58 @@
+<div class="box-shadow-white well">
+    <fieldset>
+        <legend>Pesquisar Newslatter</legend>
+        {% raw %}
+        <form class="form-inline" ng-controller="indexNewslatterCtrl">
+
+
+
+            <div class="clearfix">
+                <div class="pull-left">
+                    <button type="button" class="btn btn-primary" ng-click="cadastrar()"><li class="icon-plus-sign icon-white"></li>&nbsp;Cadastrar Newslatter</button>
+                    <button type="button" class="btn btn-primary" ng-click="cadastrarModelo()"><li class="icon-plus-sign icon-white"></li>&nbsp;Cadastrar Modelo Documento</button>
+                </div>
+
+                <div class="pull-right">
+                    <ul>
+                        <div class="input-prepend right">
+                            <span class="add-on"><li class="icon-search"></li></span>
+                            <input ng-model="query" placeholder="Pesquisa rápida" type="text">
+                        </div>
+                    </ul>
+                </div>
+
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                    <tr class="header">
+                        <th>Newslatter</th>
+                        <th>Descrição</th>
+                        <th>Data Envio</th>
+                        <th>Enviado</th>
+                        <th>Nº Dest.</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="info" ng-show="list.length == 0">
+                        <td colspan="10"><li class="icon-info-sign"></li>&nbsp;<strong>Não há retorno de registos</strong></td>
+                    </tr>
+
+                    <tr ng-repeat="item in list | filter:query">
+                        <td>{{item.no_newslatter}}</td>
+                        <td>{{item.tx_descricao}}</td>
+                        <td>{{item.dt_envio}}</td>
+                        <td>{{item.fl_enviado}}</td>
+                        <td></td>
+                        <td class="span2">
+                            <button type="button" class="btn" ng-click="editar(item.sq_newslatter)"><li class="icon-edit"></li></button>
+                            <button type="button" class="btn" ng-click="remover(item.sq_newslatter, $index)"><li class="icon-remove-sign"></li></button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+        {% endraw %}
+    </fieldset>
+</div>
+<script type="text/javascript" src="{{ asset('bundles/orthosnewslatter/js/index.js') }}"></script>
