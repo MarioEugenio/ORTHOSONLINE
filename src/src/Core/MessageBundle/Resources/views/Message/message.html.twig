@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="{{ asset('bundles/coremessage/css/last_messages.css') }}" type="text/css" media="all"/>
+{% javascripts filter='?uglifyjs'
+    '@CoreMessageBundle/Resources/public/js/message.js'
+%}
+<div class="j-deferScript" data-src="{{ asset_url }}"></div>
+{% endjavascripts %}
+{% raw %}
+<div xys-ng="Core" class="tab-content ng-cloak" ng-controller="Message_ListInboxCtrl">
+    <div class="tab-pane active">
+        <div class="tabbable tabs-left form-actions">
+            <div ng-hide="messageInbox.length == 0">
+                <div class="nav">
+                    <a class="btn" id="message-trash" ng-click="removeMessage()"><i class="icon-trash"></i></a>
+                    <a class="btn display-none" id="message-alt"><i class="icon-share-alt"></i></a>
+                </div>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <th><input type="checkbox" ng-model="all" ng-click="selectAllMessages()"></th>
+                    <th>{{'message.label.sent_from'|trans}}</th>
+                    <th>{{'message.label.subject'|trans}}</th>
+                    <th>{{'message.label.date'|trans}}</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="message in messageInbox"
+                            ng-style="markAsReaded(message)">
+
+                            <td width="2%"><input type="checkbox" ng-model="checkedMessage[message.co_message]" ng-checked="all"></td>
+                            <td width="25%" ng-click="showMessage(message.co_message)">{{message.user_sent}}</td>
+                            <td width="65%" ng-click="showMessage(message.co_message)">{{message.ds_subject}}</td>
+                            <td width="10%" ng-click="showMessage(message.co_message)"nowrap="nowrap">{{message.dt_create}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div clas>
+                <p ng-show="messageInbox.length == 0">
+                    Nenhuma mensagem disponível.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endraw %}

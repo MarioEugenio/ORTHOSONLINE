@@ -1,0 +1,30 @@
+.Message-last-messages-text{
+    margin-left: 60px;
+}
+
+.Message-last-messages-row{
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+    min-width: 225px;
+    max-width: 225px;
+}
+
+.Message-last-messages-modal {
+    width:900px;
+    height:500px;
+    margin-left:-450px;
+    padding:20px;
+    overflow:hidden;
+}
+
+.Message-last-messages-box {
+    float: left;
+    overflow: auto;
+}
+
+a.lastMessagesLink{
+    color: #007A47;
+    font-size: 11px;
+    border-bottom: 1px solid #eee;
+}

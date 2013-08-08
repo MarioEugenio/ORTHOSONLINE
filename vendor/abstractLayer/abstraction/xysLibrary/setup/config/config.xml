@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <database-default>
+        <driver></driver>
+        <host></host>
+        <port></port>
+        <dbname></dbname>
+        <user></user>
+        <password></password>
+    </database-default>
+    <database-secundary>
+        <driver></driver>
+        <host></host>
+        <port></port>
+        <dbname></dbname>
+        <user></user>
+        <password></password>
+    </database-secundary>
+    <database-test>
+        <driver></driver>
+        <host></host>
+        <port></port>
+        <dbname></dbname>
+        <user></user>
+        <password></password>
+    </database-test>
+    <mail>
+        <transport></transport>
+        <host></host>
+        <user></user>
+        <password></password>
+        <port></port>
+    </mail>
+    <parameters>parameters.ini</parameters>
+    <bootstrap>bootstrap.php.cache</bootstrap>
+    <permission>
+        <upload></upload>
+        <user></user>
+    </permission>
+</config>

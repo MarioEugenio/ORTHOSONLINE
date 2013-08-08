@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="{{ asset('bundles/corelayouts/default/css/token-input.css') }}" type="text/css"
+      media="all"/>
+<link rel="stylesheet" href="{{ asset('bundles/corelayouts/default/css/token-input-facebook.css') }}" type="text/css"
+      media="all"/>
+{% javascripts filter='?uglifyjs'
+    '@CoreLayoutsBundle/Resources/public/javascript/jquery/jquery.tokeninput.js'
+    '@CoreMessageBundle/Resources/public/js/sendMessage.js'%}
+<div class="j-deferScript" data-src="{{ asset_url }}"></div>
+{% endjavascripts %}
+<input type="hidden" id='jMessage-for-autocomplete-multiple' name="for-autocomplete" value='{{for|json_encode}}'/>
+
+{% raw %}
+<div xys-ng="Core" ng-controller="Message.SendMessageCtrl" class="ng-cloak" >
+    <div class="tab-pane" id="jMessage-new">
+        <div class="tabbable tabs-left">
+            <form method="POST" ng-submit="saveNewMessage()" id="frm-new-message" class="form-actions">
+                <input type="hidden" id='jMessage-sentMessage-co_message' name="co_message"/>
+                <input ng-model='formMessage.draft' type="hidden" name='draft' id="draft"/>
+
+                <label for='for'>{{ 'message.for.label' | trans }}:</label>
+                            <span><xys-autocomplete-multiple hint-text="message.hitText.label"
+                                                             searching-text="message.searchingText.label"
+                                                             no-results-text="message.noResultsText.label"
+                                                             url="{{urlAutocomplete}}" id='for'
+                                                             name='for'
+                                                             ng-model='formMessage.for'
+                                                             min-chars='3'
+                                                             placeholder="Teste"/></span>
+                <br/>
+                <label>{{ 'message.subject.label' | trans }}:</label>
+                <input ng-model='formMessage.subject' type="text"  maxlength="255" name='subject' id="subject">
+                <br/>
+                <label>{{ 'message.message.label' | trans }}:</label>
+                <textarea ng-model='formMessage.messageBody' name="messageBody" id="message-body" class="height170"/>
+                <br/>
+
+                <div>
+                    <input type="submit" class="btn btn-primary" id="buttonNewMessage"
+                           value="{{ 'message.send.label' | trans }}"/>
+
+                    <button type="button" class="btn" ng-click="discardMessage()"
+                            id="discardMessage">{{ 'message.cancel.label' | trans }}
+                    </button>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endraw %}

@@ -1,0 +1,1 @@
+var app = angular.module('myApp', ['$strap.directives', 'confirm', 'ui', 'core']);

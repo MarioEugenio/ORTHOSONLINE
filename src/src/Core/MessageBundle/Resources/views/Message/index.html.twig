@@ -1,0 +1,200 @@
+
+
+<link rel="stylesheet" href="{{ asset('bundles/corelayouts/default/css/token-input-facebook.css') }}" type="text/css"
+      media="all" xmlns="http://www.w3.org/1999/html"/>
+<link rel="stylesheet" href="{{ asset('bundles/corelayouts/default/css/token-input.css') }}" type="text/css"
+      media="all"/>
+<link rel="stylesheet" href="{{ asset('bundles/coremessage/css/last_messages.css') }}" type="text/css" media="all"/>
+
+<script type="text/javascript" src="{{ asset('bundles/coremessage/js/index.js') }}"></script>
+
+<input type="hidden" value="" id="j-messages-co_user">
+<input type="hidden" value="" id="j-messages-no_user">
+
+{% raw %}
+<div class="container-fluid paddingLeft0 paddingRight0 ng-cloak" xys-ng="Core ui XysMessage" ng-controller="Message_ListCtrl">
+    <div class="row-fluid no-space">
+        <div class="span12 height400 marginTop10">
+            <h3 class="box-title green box-title-rede">{{'message.label.messages'|trans}}</h3>
+
+            <div class="">
+                <div class="buttons floatLeft">
+                    <div class="btn-group floatLeft" data-toggle="buttons-radio">
+                        <button ng-click="getInboxMessages()" class="btn active btnInbox">
+                            <i class="icon-arrow-down"></i> {{'message.inbox.label'|trans}}
+                        </button>
+                        <button ng-click="getSentMessages()" class="btn btnSent">
+                            <i class="icon-arrow-up"></i> {{'message.sent.label'|trans}}
+                        </button>
+                    </div>
+                    <button ng-click="removeMessages()" class="btn btn-danger marginLeft10">
+                        <i class="icon-trash icon-white"></i> {{'message.remove.exclude'|trans}}
+                    </button>
+
+                    <button ng-click="showModalNewMessage = true" class="btn">
+                        <i class="icon-envelope"></i> {{'message.write.label'|trans}}
+                    </button>
+                </div>
+                <div class="pull-right">
+                    <div class="input-append dropdown">
+                        <form class="controls" method="post" accept-charset="UTF-8" ng-submit="search(1)">
+                            <input class="span2 width200" size="16" type="text" ng-model="formSearch.generic"
+                                   style="float:left;"
+                                   placeholder="{{ 'message.search.label' | trans}}">
+                            <a href="#" class="btn dropdown-toggle" data-toggle="dropdown"><strong class="caret"></strong></i>
+                            </a>
+                            <button class="btn btn-infoo" type="button" ng-click="search(1)"><i
+                                class="icon-search"></i>
+                            </button>
+                            <div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+                                <div class="control-group">
+                                    <div class="controls input-append">
+                                        <input class="input-large" ng-model="formSearch.to" type="text" name="to"
+                                               placeholder="{{ 'message.search.form.to' | trans}}"/><span class="add-on">
+                                        <i class="icon-question-sign" rel="tooltip"
+                                           title="{{ 'message.search.tooltip.to' | trans}}"></i>
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls input-append">
+                                        <input class="input-large" ng-model="formSearch.from" type="text" name="from"
+                                               placeholder="{{ 'message.search.form.from' | trans}}"/><span class="add-on">
+                                        <i class="icon-question-sign" rel="tooltip"
+                                           title="{{ 'message.search.tooltip.from' | trans}}"></i>
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls input-append">
+                                        <input class="input-large" ng-model="formSearch.subject" type="text" name="subject"
+                                               placeholder="{{ 'message.search.form.subject' | trans}}"/><span class="add-on">
+                                        <i class="icon-question-sign" rel="tooltip"
+                                           title="{{ 'message.search.tooltip.subject' | trans}}"></i>
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls input-append">
+                                        <input class="input-large" ng-model="formSearch.message" type="text" name="ds_message"
+                                               placeholder="{{ 'message.search.form.message' | trans}}"/><span class="add-on">
+                                        <i class="icon-question-sign" rel="tooltip"
+                                           title="{{ 'message.search.tooltip.message' | trans}}"></i>
+                                    </span>
+                                    </div>
+                                </div>
+                                <div class="controls input-append">
+                                    <div class="controls">
+                                        <div class="input-append date">
+                                            <input name="dt_start" xys-date ng-model="formSearch.dt_start" maxlength="10"
+                                                   placeholder="{{ 'message.search.form.date_send' | trans}}" class="input-small datepicker-input"><span
+                                            class="add-on">
+                                            <i class="icon-th"></i>
+                                        </span>
+                                            <input name="dt_end" xys-date ng-model="formSearch.dt_end" maxlength="10"
+                                                   placeholder="{{ 'message.search.form.date_received' | trans}}" class="input-small datepicker-input"><span
+                                            class="add-on"><i
+                                            class="icon-th"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <button type="button" ng-click="search(2)" class="btn">
+                                            <i class="icon-search"></i> {{ 'message.search.label' | trans}}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+        <div class="messages" style="clear:both" ng-show="(messages.length > 0)">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th ng-hide="(box == 'search')"><input type="checkbox" ng-model="allMessages" ng-click="selectAllMessages()"></th>
+                    <th>{{toOrFor}}</th>
+                    <th>{{'message.subject.label'|trans}}</th>
+                    <th>{{'message.label.date'|trans}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="message in messages|orderBy:'dt_sent_order':true" style="cursor: pointer">
+                    <td ng-show="(box == 'inbox')">
+                        <input type="checkbox" ng-checked="allMessages"
+                               ng-model="checkboxes[message.co_message_origin]">
+                    </td>
+                    <td ng-show="(box == 'sent')">
+                        <input type="checkbox" ng-checked="allMessages"
+                               ng-model="checkboxes[message.co_message]">
+                    </td>
+                    <td ng-click="responseMessages(message)" width="20%">
+                        <i class="icon-envelope" ng-show="((message.fl_read == false) && (box == 'inbox'))"></i>
+                        <span ng-show="(message.users)">{{message.users}}</span>
+                        <span ng-hide="(message.users)">{{no_user}}</span>
+                    <span class="badge badge-info"
+                          ng-show="message.count_messages > 2">{{message.count_messages}}</span>
+                    </td>
+                    <td ng-click="responseMessages(message)" width="65%">{{message.subject}}</td>
+                    <td ng-click="responseMessages(message)" width="15%">
+                        <span xys-relative-date="{{message.dt_sent}}"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+            <div class="marginLeft10 marginRight10" ng-hide="(messages.length > 0)" style="clear:both">
+                <div class="alert alert-info">
+                    {{ 'message.no_messages_found' | trans }}
+                </div>
+            </div>
+
+            <!--Modal mostrar mensagem-->
+            <div ng-model="showModalMessage" ui-modal style="width: 800px; height: 500px; margin-left: -400px; margin-right:
+            -400px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>{{selectedMessage.subject}}</h3>
+                </div>
+                <div class="modal-body scrollY height400">
+                    <strong>{{'message.inbox.to'|trans}}: </strong> {{selectedMessage.users}}<br/>
+                    <strong>{{'message.inbox.on'|trans}}: </strong>
+                    <span xys-relative-date="{{selectedMessage.dt_sent}}"></span>
+                    <hr>
+                    <span>{{selectedMessage.message}}</span>
+                </div>
+            </div>
+
+            <!--Modal responder-->
+            <div ng-model="showModalReply" id="Message-show-form" ui-modal style="margin-left: -400px; margin-right: -400px;
+            width:800px; height:500px;overflow:hidden;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>{{'message.subject.label'|trans}}: {{selectedMessage.subject}}</h3>
+                </div>
+                <div class="modal-body scrollY">
+                    <div xys-message-thread co-message="messageReply" subject=""></div>
+                </div>
+            </div>
+
+            <!--Modal nova mensagem-->
+            <div ng-model="showModalNewMessage" ui-modal id="Message-news-form" style="width: 800px; height: 500px;
+            margin-left: -400px; margin-right: -400px;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>{{'message.new.label'|trans}}</h3>
+                </div>
+                <div class="modal-body scrollY">
+                    <div xys-message-box users-to="usersTest"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endraw %}
