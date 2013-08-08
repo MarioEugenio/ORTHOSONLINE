@@ -1,0 +1,42 @@
+<div class="box-shadow-white well">
+    <fieldset>
+        <legend>Relatório Parcelas</legend>
+
+        <form method="POST" target="_blank" action="/ORTHOS/web/app_dev.php/relatorio/bind/financeiro/parcelas">
+            <div class="box clearfix" >
+                <div style="margin-top: 15px;" class="row">
+                    <div class="span5">
+                        <div class="control-group">
+                            <label>Período</label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <input type="text" class="span6" id="dt_inicio" name="dt_inicio" placeholder="De" readonly="readonly" data-date-format="dd/mm/yyyy" bs-datepicker>
+                                    <button type="button" class="btn j-datepicker"  data-toggle="datepicker"><i class="icon-calendar"></i></button>
+
+                                    <input type="text" class="span6" id="dt_fim" name="dt_fim" placeholder="Até" readonly="readonly" data-date-format="dd/mm/yyyy" bs-datepicker>
+                                    <button type="button" class="btn j-datepicker" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="span4">
+                        <div class="control-group">
+                            <label>Tipo Parcela</label>
+                            <label class="radio">
+                                <input type="radio" name="is_atraso" checked="checked" id="sim" value="true">Paga
+                            </label>
+                            <!--<label class="radio">
+                                <input type="radio" name="is_atraso" id="nao" value="false">Não Paga
+                            </label>-->
+                        </div>
+                    </div>
+
+                    <div class="span3 marginTopButton">
+                        <button type="submit" class="btn btn-primary">Gerar Relatório</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </fieldset>
+</div>

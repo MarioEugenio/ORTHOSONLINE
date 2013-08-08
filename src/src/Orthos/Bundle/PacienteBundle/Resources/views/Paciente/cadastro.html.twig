@@ -1,0 +1,188 @@
+<div class="box-shadow-white well">
+<fieldset>
+    <legend>Cadastro de Paciente</legend>
+    <input type="hidden" id="listConvenios" value="{{convenios}}">
+    {% raw %}
+    <form ng-controller="cadastroPacienteCtrl" class="form-horizontal">
+
+        <div class="box control-group">
+            <small>
+                <span class="add-on"><li class="icon-exclamation-sign"></li></span> Os campos marcados com "*" são de preenchimento obrigatório
+            </small>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">* Nome</label>
+            <div class="controls">
+                <input type="text" class="input-xxlarge" ng-model="form.no_paciente" maxlength="255" placeholder="Nome do paciente">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">E-mail</label>
+            <div class="controls">
+                <input type="text" class="input-xxlarge" ng-model="form.ds_email" maxlength="255" placeholder="E-mail do paciente">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Convênio</label>
+            <div class="controls">
+                <select ng-model="form.sq_convenio" ng-options="item.sqConvenio as item.noConvenio for (sqConvenio, item) in convenio"></select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">* Deseja Lembrete?</label>
+            <div class="controls">
+                <div class="btn-group" bs-buttons-radio>
+                    <button type="button" class="btn" ng-model="contato.sim">Sim</button>
+                    <button type="button" class="btn" ng-model="contato.nao">Não</button>
+                </div>&nbsp;&nbsp;
+                <small>Lembrar consulta por (Telefone, e-mail e SMS)</small>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">CPF</label>
+            <div class="controls">
+                <input type="text" class="cpf j-cpf" ng-model="form.nu_cpf">
+            </div>
+        </div>
+
+        <div class="control-group input-append">
+            <label class="control-label">* Data de Nascimento</label>
+            <div class="controls">
+                <input type="text" class="date" ng-model="form.dt_nascimento" data-date-format="dd/mm/yyyy" bs-datepicker>
+                <button type="button" class="btn j-datepicker" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">* Sexo</label>
+            <div class="controls">
+                <div class="btn-group" bs-buttons-radio>
+                    <button type="button" class="btn" ng-model="sexo.masculino">Masculino</button>
+                    <button type="button" class="btn" ng-model="sexo.feminino">Feminino</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">* Estado Civil</label>
+            <div class="controls">
+                <div class="btn-group" bs-buttons-radio>
+                    <button type="button" class="btn" ng-model="estCivil.Casado">Casado</button>
+                    <button type="button" class="btn" ng-model="estCivil.Solteiro">Solteiro</button>
+                    <button type="button" class="btn" ng-model="estCivil.Viuvo">Viúvo</button>
+                    <button type="button" class="btn" ng-model="estCivil.Divorciado">Divorciado</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">RG / Órgão Expeditor</label>
+            <div class="controls">
+                <input type="text" ng-model="form.nu_rg" class="input-medium"> /
+                <input type="text" ng-model="form.ds_orgao_expeditor" maxlength="50" class="input-medium">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">* Endereço</label>
+            <div class="controls">
+                <input type="text" class="input-xxlarge" ng-model="form.tx_endereco" maxlength="255" placeholder="Endereço do paciente">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">* Bairro</label>
+            <div class="controls">
+                <input type="text" class="input-medium" ng-model="form.tx_cidade" maxlength="255" placeholder="Bairro do paciente">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">* UF</label>
+            <div class="controls">
+                <input type="text" class="input-mini" ng-model="form.tx_uf" maxlength="2" placeholder="UF">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">* Número</label>
+            <div class="controls">
+                <input type="text" class="input-mini number" ng-model="form.nu_endereco" maxlength="255">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Complemento</label>
+            <div class="controls">
+                <input type="text" class="input-xlarge" ng-model="form.tx_complemento" maxlength="100" placeholder="Complemento endereço">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">* Telefone Residêncial</label>
+            <div class="controls">
+                <input type="text" class="fone j-fone-residencial" class="input-medium" ng-model="form.nu_residencial" maxlength="20">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Telefone Celular</label>
+            <div class="controls">
+                <input type="text" class="fone j-fone-celular" class="input-medium" ng-model="form.nu_celular" maxlength="20">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Empresa onde trabalha</label>
+            <div class="controls">
+                <input type="text" class="input-xlarge" ng-model="form.no_trabalho_empresa" maxlength="255" placeholder="Empresa onde trabalha">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Endereço Empresa</label>
+            <div class="controls">
+                <input type="text" class="input-xxlarge" ng-model="form.tx_endereco_empresa" maxlength="255" placeholder="Endereço da empresa">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Nome Profissão</label>
+            <div class="controls">
+                <input type="text" class="input-xlarge" ng-model="form.no_profissao" maxlength="255" placeholder="Nome da profissão">
+            </div>
+        </div>
+
+        <fieldset>
+            <legend>Responsável</legend>
+
+            <div class="control-group">
+                <label class="control-label">Nome do Responsável</label>
+                <div class="controls">
+                    <input type="text" class="input-xxlarge" ng-model="form.no_responsavel" maxlength="255" placeholder="Digite o nome do responsável">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">CPF do Responsável</label>
+                <div class="controls">
+                    <input type="text" class="cpf j-cpf-responsavel" ng-model="form.nu_cpf_responsavel">
+                </div>
+            </div>
+
+        </fieldset>
+
+        <div class="form-actions">
+            <button type="button" ng-click="submit()" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btn" ng-click="pesquisa()">Cancelar</button>
+        </div>
+    </form>
+    {% endraw %}
+</fieldset>
+</div>
+<script type="text/javascript" src="{{ asset('bundles/orthospaciente/js/cadastro.js') }}"></script>

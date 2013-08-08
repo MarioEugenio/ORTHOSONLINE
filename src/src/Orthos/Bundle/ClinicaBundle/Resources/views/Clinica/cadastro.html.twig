@@ -1,0 +1,211 @@
+<div class="box-shadow-white well">
+    <fieldset>
+        <legend>Cadastro Clínica</legend>
+        <input type="hidden" id="j-clinica" value="{{clinica}}" >
+        <input type="hidden" id="contas" value="{{listBancos}}" >
+        <input type="hidden" id="cadeiras" value="{{listCadeiras}}" >
+
+        {% raw %}
+        <form ng-controller="cadastroClinicaCtrl" >
+            <input type="hidden" ng-model="form.sq_clinica">
+
+            <div class="box">
+                <small>
+                    <span class="add-on"><li class="icon-exclamation-sign"></li></span> Os campos marcados com "*" são de preenchimento obrigatório
+                </small>
+            </div><br>
+
+            <div class="row">
+                <div class="span12">
+                    <label>* Nome Clínica</label>
+                    <input type="text" class="span12" ng-model="form.no_clinica" maxlength="255">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span12">
+                    <label>* Razão Social</label>
+                    <input type="text" class="span12" ng-model="form.no_razao_social" maxlength="255">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span12">
+                    <label>* E-mail</label>
+                    <input type="text" class="span12" ng-model="form.ds_email_clinica" maxlength="255">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span2">
+                    <label>* CNPJ</label>
+                    <input type="text" class="span12 cnpj" ng-model="form.nu_cnpj">
+                </div>
+
+                <div class="span10">
+                    <label>Nome Contato</label>
+                    <input type="text" class="span12" ng-model="form.no_contato" maxlength="255">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span12">
+                    <label>Endereço</label>
+                    <input type="text" class="span12" ng-model="form.tx_endereco" maxlength="255">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span2">
+                    <label>UF</label>
+                    <input type="text" class="span12" ng-model="form.tx_uf" maxlength="2">
+                </div>
+
+                <div class="span4">
+                    <label>Cidade</label>
+                    <input type="text" class="span12" ng-model="form.no_cidade" maxlength="255">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span2">
+                    <label>Telefone</label>
+                    <input type="text" class="span12 fone j-nu_telefone" ng-model="form.nu_telefone">
+                </div>
+
+                <div class="span2">
+                    <label>Fax</label>
+                    <input type="text" class="span12 fone j-nu_fax" ng-model="form.nu_fax">
+                </div>
+
+                <div class="span2">
+                    <label>Base Juros %</label>
+                    <input type="text" class="span12 number" maxlength="50" ng-model="form.nu_juros">
+                </div>
+
+                <div class="span2">
+                    <label>* Intervalo Hora dividido por</label>
+                    <div class="input-append">
+                        <input  ng-model="form.nu_intervalo" type="text" class="input-small number" maxlength="1">
+                        <span class="add-on"><i class="icon-time"></i> {{calcularMin()}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <label>Texto de Instruções para geração de Boleto</label>
+                <textarea ng-model="form.tx_boleto" rows="4" cols="4" class="span12"></textarea>
+            </div>
+            <br>
+
+            <div class="box-shadow-white">
+                <blockquote>
+                    <p><span class="badge badge-important">{{listCadeira.length}}</span> Itens cadastrados para <strong>Cadeira Agenda</strong></p>
+                    <small>Caso não haja registros, queira cadastrar no formulário abaixo</small>
+                </blockquote>
+
+                <div class="box">
+                    <small><strong>Formulário de cadastro Cadeira Agenda</strong></small>
+
+                    <div class="row">
+                        <div class="span6">
+                            <label>* Nome da Cadeira</label>
+                            <input type="text" class="span12" ng-model="cadeira.noCadeira">
+                        </div>
+                        <div class="span3">
+                            <button type="button" ng-click="addCadeira()" class="btn btn-primary marginTopButton"><li class="icon-plus-sign icon-white"></li> Adicionar Cadeira</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"><br>
+                    <table id="GridCadeira" class="table table-bordered table-hover table-striped" cellspacing="0" cellpadding="0" border="0">
+                        <thead>
+                        <tr class="header">
+                            <th>Cadeira</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="info" ng-show="listCadeira.length == 0">
+                            <td colspan="10"><li class="icon-info-sign"></li>&nbsp;<strong>Não há retorno de registos</strong></td>
+                        </tr>
+
+                        <tr ng-repeat="item in listCadeira">
+                            <td>{{item.noCadeira}}</td>
+                            <td class="span1">
+                                <button type="button" class="btn" ng-click="removeCadeira($index)"><li class="icon-trash"></li></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div><br>
+
+            <div class="box-shadow-white">
+                <blockquote>
+                    <p><span class="badge badge-important">{{listContas.length}}</span> Itens cadastrados para <strong>Conta Clínica</strong></p>
+                    <small>Caso não haja registros, queira cadastrar no formulário abaixo</small>
+                </blockquote>
+
+                <div class="box">
+                    <small><strong>Formulário de cadastro Conta Cínica</strong></small>
+
+                    <div class="row">
+                        <div class="span3">
+                            <label>* Nº Banco</label>
+                            <select ng-model="conta.nuBanco" class="span12" ng-options="i.cod as i.banco for i in bancos"></select>
+                        </div>
+                        <div class="span3">
+                            <label>* Nº Agência</label>
+                            <input type="text" class="span12" ng-model="conta.nuAgencia">
+                        </div>
+                        <div class="span3">
+                            <label>* Nº Conta</label>
+                            <input type="text" class="span12" ng-model="conta.nuConta">
+                        </div>
+                        <div class="span3">
+                            <button type="button" ng-click="addContas()" class="btn btn-primary marginTopButton"><li class="icon-plus-sign icon-white"></li> Adicionar Conta</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix"><br>
+                    <small><li class="icon-asterisk"></li> Selecione a conta principal para geração de boleto</small>
+                    <table id="GridConta" class="table table-bordered table-hover table-striped" cellspacing="0" cellpadding="0" border="0">
+                        <thead>
+                        <tr class="header">
+                            <th class="span1"></th>
+                            <th>Banco</th>
+                            <th>Nº Agência</th>
+                            <th>Nº Conta</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="info" ng-show="listContas.length == 0">
+                            <td colspan="10"><li class="icon-info-sign"></li>&nbsp;<strong>Não há retorno de registos</strong></td>
+                        </tr>
+
+                        <tr ng-repeat="item in listContas">
+                            <td><input type="radio" ng-checked="item.stDefault" ng-model="form.default" value="{{item.nuBanco}}" id="option-{{item.nu_banco}}"></td>
+                            <td>{{viewBanco(item.nuBanco)}}</td>
+                            <td>{{item.nuAgencia}}</td>
+                            <td>{{item.nuConta}}</td>
+                            <td class="span1">
+                                <button type="button" ng-click="removeContas($index)" class="btn"><li class="icon-trash"></li></button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" ng-click="submit()" class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn" ng-click="pesquisa()">Cancelar</button>
+            </div>
+        </form>
+        {% endraw %}
+    </fieldset>
+</div>
+<script type="text/javascript" src="{{ asset('bundles/orthosclinica/js/cadastro.js') }}"></script>

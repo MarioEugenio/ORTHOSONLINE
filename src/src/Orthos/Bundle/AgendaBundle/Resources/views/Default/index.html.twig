@@ -1,0 +1,287 @@
+<input type="hidden" id="listClinica" value="{{clinicas}}">
+{% raw %}
+<div ng-controller="indexCtrl" class="box-shadow-white well">
+    <fieldset>
+        <legend>Agenda</legend>
+        <div class="clearfix">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;background-color: #AA3333;">
+                            <li class="icon-time icon-white"></li>
+                        </th>
+                        <th style="background-color: #CCC;" colspan="10">Cadeiras</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in listAgenda" id="time_{{item.idTime}}">
+                        <td ng-init="row = $index;" class="center" style="background-color: #B75B5B;color:#FFF;">{{item.time}}</td>
+                        <td class="span6" id="agenda_{{item2.sqAgenda}}" map="{{row}}|{{$index}}" style="background-color: {{getBackground(item, item2)}} !important;" ng-repeat="item2 in item.cadeiras | filter:query">
+                            <p class="label"><small>Nº {{item2.numero}} - {{item.time}}</small></p>
+                            <p><small><button ng-show="item2.paciente.id" ng-click="accessUser(item2)" class="btn btn-mini" type="button"><li class="icon-user"></li></button> <strong>{{item2.paciente.nome}}</strong></small></p>&nbsp;
+                            <p ng-show="item2.no_dentista" class="label label-info"><small>Dr(a): {{item2.no_dentista}}</small></p>
+                            <p class="pull-left">
+                                <span  ng-show="item2.dtChegada" class="label label-important">Chegada: {{item2.dtChegada}}</span>
+                            </p>
+                            <p class="pull-right">
+                                <button type="buttton" bs-popover="'observacao'" title="Observações" ng-show="checkAcoesObservacao(item, item2)" class="btn btn-mini btn-warning"><li class="icon-eye-open icon-white"></li></button>
+                                <!--<button type="buttton" ng-show="checkAcoesTransferencia(item, item2)" class="btn btn-mini btn-info"><li class="icon-fullscreen"></li></button>-->
+                                <button type="buttton" bs-popover="'remover'" title="Deseja remover este registro?" ng-show="checkAcoesCancelamento(item, item2)" class="btn btn-mini btn-danger"><li class="icon-remove-circle icon-white"></li></button>
+                                <button type="buttton" ng-show="checkAgendamento(item, item2)" class="btn btn-mini" keyboard="false" ng-click="setIndex(row, $index, item, item2)"><li class="icon-calendar"></li></button>
+                                <button type="buttton" ng-show="checkAcoesEdicao(item, item2)" class="btn btn-mini" keyboard="false" ng-click="setEdit(row, $index, item, item2)"><li class="icon-edit"></li></button>
+                            </p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </fieldset>
+
+    <div id="agendarModal" style="width: 630px;"  class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" ng-click="clear()" aria-hidden="true">×</button>
+            <h3>Agendamento</h3>
+        </div>
+        <div class="modal-body">
+
+            <div class="row">
+                <div class="span12">
+
+                    <div class="control-group">
+                        <strong><span>Período:</span> {{tmpItem.date}} - {{tmpItem.time}}</strong> <span ng-show="tmpItem.item.dtChegada" class="label label-important pull-right">Chegada: {{tmpItem.item.dtChegada}}</span>
+                        <span ng-show="listParcelas.length" class="label label-warning pull-right">Parc. Atrasadas: {{listParcelas.length}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" ng-show="formModal.tx_alerta_medico">
+                <div class="alert alert-danger">
+                    <li class="icon-info-sign"></li> <strong>Alerta Médico:</strong> {{formModal.tx_alerta_medico}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span3">
+                    <label>Matrícula</label>
+                    <input type="text" class="span12" ng-readonly="true" ng-model="formModal.nu_matricula">
+                </div>
+                <div class="span9">
+                    <div class="input-append">
+                        <label>* Paciente</label>
+                        <input type="text" class="input-xlarge j-paciente"
+                               ng-model="formModal.no_paciente"
+                               ui-event="{ blur : 'getMatricula()' }"
+                               typeaheadId="sqPaciente"
+                               ng-readonly="tmpItem.edit"
+                               bs-typeahead="autocompletePaciente">
+                        <button type="button" ng-click="efetivaAgendado()" class="btn btn-primary"><li class="icon-search icon-white"></li></button>
+                    </div>
+                    <button ng-show="tmpItem.item.paciente.id" data-dismiss="modal" aria-hidden="true" style="margin-top: 15px;" ng-click="accessUser(tmpItem.item)" class="btn" type="button"><li class="icon-user"></li></button>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span3">&nbsp;</div>
+                <div class="span9">
+                    <label>Nº Telefone(s)</label>
+                    <div class="input-prepend">
+                        <span class="add-on"><li class="icon-asterisk"></li></span>
+                        <input type="text" class="input-xlarge" maxlength="50" ng-model="formModal.nu_paciente">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span12" ng-show="listProntuario.length > 0" class="span5">
+
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <td colspan="3"><small>Última consulta</small></td>
+                        </tr>
+                        <tr class="header">
+                            <th>Data</th>
+                            <th>Realizados</th>
+                            <th>A Realizar</th>
+                            <th>Obs.</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in listProntuario">
+                            <td>{{item.dt_procedimento}}</td>
+                            <td ng-bind-html-unsafe="formataProcedimentos(item.realizados)"></td>
+                            <td ng-bind-html-unsafe="formataProcedimentos(item.arealizar)"></td>
+                            <td ng-bind-html-unsafe="item.observacao"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span3">
+                    <label>Cadeira</label>
+                    <input type="hidden" class="j-cadeira" value="{{tmpItem.item.sqCadeira}}">
+                    <input type="text" ng-readonly="true" class="span12" value="{{tmpItem.item.numero}}">
+                </div>
+                <div class="span9">
+                    <div class="input-append">
+                        <label>Atendente</label>
+                        <input type="text" class="input-xlarge j-atendente" ui-event="{ blur : 'getAtendente()' }"
+                               ng-model="formModal.no_atendente" typeaheadId="sqAtendente"
+                               bs-typeahead="autocompleteAtendente">
+                        <span class="add-on"><li class="icon-search"></li></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span3">&nbsp;</div>
+                <div class="span9">
+                    <div class="input-prepend input-append">
+                        <label>Dentista</label>
+                        <span class="add-on" ng-show="confirmDendista"><li class="icon-ok-circle"></li></span>
+                        <input type="text" class="input-xlarge j-dentista" ui-event="{ blur : 'getDentista()' }"
+                               ng-model="formModal.no_dentista" typeaheadId="sqDentista"
+                               bs-typeahead="autocompleteDentista">
+                        <button ng-click="getDentista()" class="btn btn-primary"><li class="icon-search icon-white" /></button>
+                    </div>
+                </div>
+            </div>
+
+             <div class="row">
+                <div class="span12">
+                    <label>Observeções</label>
+                    <textarea rows="2" cols="2" class="span12" ng-model="formModal.tx_observacao"></textarea>
+                </div>
+             </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" ng-click="clear()" aria-hidden="true">Fechar</button>
+            <button class="btn btn-info" data-dismiss="modal" aria-hidden="true" ng-show="viewAgendar()" ng-click="agendarConsulta()">Agendar</button>
+            <button class="btn btn-info" data-dismiss="modal" aria-hidden="true" ng-show="tmpItem.edit == true" ng-click="setStatus(formModal, 2)"><li class="icon-upload icon-white"></li> Em Espera</button>
+            <button class="btn btn-info" data-dismiss="modal" aria-hidden="true" ng-show="tmpItem.edit == true" ng-click="setStatus(formModal, 5)"><li class="icon-upload icon-white"></li> Em Atend.</button>
+            <button class="btn btn-info" data-dismiss="modal" aria-hidden="true" ng-show="tmpItem.edit == true" ng-click="setStatus(formModal, 4)"><li class="icon-upload icon-white"></li> Finalizado</button>
+            <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true" ng-show="tmpItem.edit == true" ng-click="agendarConsulta()">Salvar</button>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="myModalLabel">Calendário Orthos</h3>
+        </div>
+        <div class="modal-body">
+            <div style="width: 530px" id="j-boxCalendar"></div>
+
+            <div class="row pull-right" style="margin-top: 5px;">
+                <label>Data</label>
+                <div class="input-append">
+                    <input type="text" class="span6" id="dataManual" placeholder="Selecione a data" readonly="readonly" data-date-format="dd/mm/yyyy" bs-datepicker>
+                    <button type="button" class="btn j-datepicker"  data-toggle="datepicker"><i class="icon-calendar"></i></button>
+                    <button type="button" class="btn" ng-click="setAgendaManual()"><i class="icon-search"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Fechar</button>
+        </div>
+    </div>
+
+    <div id="modalPesquisa" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Pesquisa Avançada</h3>
+        </div>
+        <div class="modal-body" style="min-height: 400px;">
+            <div class="row">
+                <div class="input-append input-prepend">
+                    <span class="add-on"><li class="icon-search"></li></span>
+                    <input type="text" ng-model="pesquisa.no_paciente" style="width: 450px"
+                      typeaheadId="sqPaciente"
+                      class="j-pesquisa"
+                      bs-typeahead="autocompletePaciente">
+                    <button type="button" class="btn" ng-click="pesquisarConsulta()"><li class="icon-search"></li></button>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 5px;">
+                <div class="alert" ng-show="!(listConsultas.length)">Não há retorno de registros.</div>
+                <table ng-show="listConsultas.length > 0" class="table table-bordered">
+                    <thead>
+                        <tr class="header">
+                            <th>Data</th>
+                            <th>Chegada</th>
+                            <th>Observação</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in listConsultas">
+                            <td>{{item.dtAgenda}}</td>
+                            <td>{{item.dtChegada}}</td>
+                            <td>{{item.txObservacao}}</td>
+                            <td>{{item.status}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Fechar</button>
+        </div>
+    </div>
+
+    <div class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <div class="nav-collapse pull-left">
+                    <ul class="nav">
+                        <span class="brand">
+                            {{getDateAgenda()}}
+                        </span>
+
+                        <a href="#myModal" role="button" class="btn" data-toggle="modal"><li class="icon-calendar"></li></a>
+
+                    </ul>
+
+                    <ul class="nav" style="margin-top:10px;">
+                        <span class="label label-warning">Agendado</span>
+                        <span class="label label-important">Em Espera</span>
+                        <span class="label label-success">Em Atend.</span>
+                        <span class="label label-info">Finalizado</span>
+                    </ul>
+                </div>
+
+                <div class="nav-collapse pull-right">
+                    <ul class="nav" style="margin-top:10px;">
+                        <div class="input-prepend input-prepend input-append right">
+                            <span class="add-on"><li class="icon-share"></li></span>
+                            <select ng-model="clinica" ng-options="item.sqClinica as item.noClinica for (sqClinica, item) in listClinica"></select>
+                            <button type="button" ng-click="loadAgenda()" class="btn btn-primary"><span class="icon-calendar icon-white"></span> Alterar</button>
+                        </div>
+                    </ul>
+
+                    <ul class="nav" style="margin-top:10px; margin-right:-10px;">
+
+                        <div class="input-prepend input-append right">
+                            <span class="add-on"><li class="icon-search"></li></span>
+                            <input ng-model="query" type="text" class="input-medium">
+                            <a class="btn btn-primary" href="#modalPesquisa" role="button" data-toggle="modal"><li class="icon-search icon-white"></li> Avançada</a>
+                        </div>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<input id="agendaCheck" type="hidden" value="true">
+{% endraw %}
+
+<script type="text/javascript" src="{{ asset('bundles/orthosagenda/js/index.js') }}"></script>

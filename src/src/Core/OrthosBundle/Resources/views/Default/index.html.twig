@@ -1,0 +1,90 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}ORTHOS{% endblock %}
+
+{% block css %}
+<link href="{{ asset('bundles/coreorthos/css/bootstrap.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/coreorthos/css/bootstrap-responsive.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/coreorthos/css/layout-login.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/coreorthos/css/base.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/coreorthos/css/stick.min.css') }}" rel="stylesheet" type="text/css" />
+
+{% endblock %}
+
+{% block body %}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">ORTHOS</a>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row-fluid">
+        <div class="boxLogin-corp">
+            <div id="topRight" class="back-box-login-corp">
+                <div class="marginBottom20">
+                    <h5 class="marginTop0">Bem vindo ao ORTHOS ONLINE!</h5>
+                </div>
+
+                <form id="formLogin" ng-controller="loginCtrl" style="margin-bottom:0px;">
+                    <div id="alertLogin"></div>
+                    <div class="row">
+                        <div class="span12">
+                            <input id="login_ds_email" ng-model="login.user" class="width245 required" type="email" autofocus="" tabindex="1" placeholder="Login ou e-mail" name="login_ds_email">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span12">
+                            <input id="login_ds_password" ng-model="login.password" class="width245 required marginTop5" type="password" tabindex="1" placeholder="Senha" name="login_ds_password">
+                        </div>
+                    </div>
+                    <div class="row" ng-show="listClinica.length">
+                        <div class="span12">
+                            <select  ng-model="login.sqClinica" ng-change="autenticacao = false" ng-options="item.sq_clinica as item.no_clinica for item in listClinica"></select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span12">
+                            <button id="botao1" ng-show="autenticacao == true" ng-click="autenticar()" class="btn btn-info" type="button">Entrar</button>
+                            <button id="botao2" ng-show="autenticacao == false" ng-click="setClinica()" class="btn btn-primary" type="button">Entrar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/externals/jquery-1.9.1.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/externals/bootstrap.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/modal.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/externals/sticky.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/externals/angular/angular.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/externals/angular/angular-resource.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/externals/angular/angular-cookies.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/externals/angular/angular-sanitize.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/externals/angular/angular-bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/externals/angular/angular-bootstrap-prettify.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/externals/angular-directives/strap.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/externals/angularUI/build/angular-ui.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/diretivas.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/form.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/Core.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/Usuario/js/login.js') }}"></script>
+{% endblock %}
+

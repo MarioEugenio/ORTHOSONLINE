@@ -1,0 +1,99 @@
+<link href="{{ asset('bundles/coreorthos/css/uploadify.css') }}" rel="stylesheet" type="text/css" />
+
+<div class="box-shadow-white well">
+    <fieldset>
+        <legend>Retorno Boleto</legend>
+
+        <div id="remessaScope" class="form-inline" ng-controller="remessaCtrl">
+            <div class="box"><span class="icon-asterisk"></span> Selecione abaixo o arquivo de retorno do banco</div><br>
+            <div class="row">
+                <input id="listRemessa" type="hidden">
+                <form>
+                    <div id="queue"></div>
+                    <input id="file_upload" name="file_upload" type="file" multiple="true">
+                </form>
+                {% raw %}
+                <div class="row">
+                    <span class="pull-left"><small>Selecione abaixo os boletos que deseja baixar, ou se desejar baixar manual clique no botao "baixar".</small></span>
+                    <!--<span class="pull-right"><button class="btn btn-primary"><li class="icon-upload icon-white"></li> Baixar Parcelas</button></span><br>-->
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                        <tr class="header">
+                            <th><input type="checkbox" ng-model="rem.baixa"></th>
+                            <th>Baixar</th>
+                            <th>Nosso Nº</th>
+                            <th>Paciente</th>
+                            <th>Data do Pagamento</th>
+                            <th>Valor Parcela</th>
+                            <th>Valor Pagamento</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="info" ng-show="listRemessa.length == 0">
+                            <td colspan="10"><li class="icon-info-sign"></li>&nbsp;<strong>Não há retorno de registos</strong></td>
+                        </tr>
+
+                        <tr ng-show="item.nu_parcela" ng-repeat="item in listRemessa">
+                            <td><input ng-hide="item.pago" type="checkbox" ng-model="rem.baixa" value="{{item.sq_parcela}}"></td>
+                            <td><button ng-hide="item.pago" ng-click="baixar(item)" class="btn"><li class="icon-check"></li></button></td>
+                            <td>{{item.nu_parcela}}</td>
+                            <td>{{item.no_paciente}}</td>
+                            <td>{{item.dt_pagamento}}</td>
+                            <td ng-init="somaTotal(item.vl_parcela)">{{item.vl_parcela}}</td>
+                            <td ng-init="somaTotalPago(item.vl_pagamento)">{{item.vl_pagamento}}</td>
+                            <td ng-bind-html-unsafe="status(item.check)"></td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="header">
+                                <td colspan="5"><strong class="text-right">Totalizadores:</strong></td>
+                                <td><strong>R$ {{total.toFixed(2)}}</strong></td>
+                                <td><strong>R$ {{totalPago.toFixed(2)}}</strong></td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                {% endraw %}
+                <script type="text/javascript">
+                    $(function() {
+
+                        setTimeout(function () {
+                            $('#file_upload').uploadify({
+                                'buttonText' : 'Selecione',
+                                'swf'      : '{{ asset('bundles/coreorthos/swf/uploadify.swf') }}',
+                                'uploader' : baseUrl + '/orthos/financeiro/retorno',
+                                method:         'POST',
+                                auto:           true,
+                                wmode:          'transparent',
+                                fileDesc:       '(*.RET;*.ret)',
+                                fileExt:        '*.RET;*.ret',
+                                'formData'      : {},
+                                multi:          true,
+                                'onUploadSuccess' : function(file, data, response) {
+                                    console.log(data);
+                                var data = JSON.parse(data);
+                                if (data.success) {
+                                    $('#listRemessa').val(JSON.stringify(data.result));
+                                }
+
+                                if (!data.success) {
+                                    Modal.growl(data.message, 'error');
+                                }
+                            },
+                            'onUploadError' : function(file, errorCode, errorMsg, errorString) {
+                                console.log('The file ' + file.name + ' could not be uploaded: ' + errorString);
+                            }
+                        });
+                    }, 300);
+
+                    });
+                </script>
+            </div>
+        </div>
+
+    </fieldset>
+</div>
+<script type="text/javascript" src="{{ asset('bundles/orthosfinanceiro/js/remessa.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/javascript/externals/jquery.uploadify.js') }}"></script>

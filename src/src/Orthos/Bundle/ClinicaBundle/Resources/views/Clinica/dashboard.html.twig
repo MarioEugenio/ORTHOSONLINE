@@ -1,0 +1,37 @@
+
+<div ng-controller="dashboardCtrl">
+    {% raw %}
+    <div class="clearfix padding-content">
+        <div class="row">
+            <div class="span6">
+                <label>Clínica</label>
+                <span class="muted">{{clinica.no_clinica}}</span>
+            </div>
+            <div class="span6">
+                <label>CNPJ</label>
+                <span class="muted">{{clinica.nu_cnpj}}</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
+                <label>E-mail</label>
+                <span class="muted">{{clinica.ds_email_clinica}}</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span6">
+                <label>Nº Telefone</label>
+                <span class="muted">{{clinica.nu_telefone}}</span>
+            </div>
+            <div class="span6">
+                <label>Contato</label>
+                <span class="muted">{{clinica.no_contato}}</span>
+            </div>
+        </div>
+    </div>
+    {% endraw %}
+</div>
+
+<script type="text/javascript" src="{{ asset('bundles/orthosclinica/js/dashboard.js') }}"></script>

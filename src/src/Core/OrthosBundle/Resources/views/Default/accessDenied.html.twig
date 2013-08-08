@@ -1,0 +1,53 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}ORTHOS{% endblock %}
+
+{% block css %}
+<link href="{{ asset('bundles/coreorthos/css/bootstrap.css') }}" rel="stylesheet" type="text/css"
+      xmlns="http://www.w3.org/1999/html"/>
+<link href="{{ asset('bundles/coreorthos/css/bootstrap-datepicker.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/coreorthos/css/bootstrap-responsive.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/coreorthos/css/layout.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/coreorthos/css/base.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/coreorthos/css/jquery.calendarPicker.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/coreorthos/css/stick.min.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/coreorthos/css/jquery.dataTables.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('bundles/coreorthos/css/bootstrap-timepicker.css') }}" rel="stylesheet" type="text/css" />
+
+{% endblock %}
+
+{% block body %}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">ORTHOS</a>
+
+        </div>
+    </div>
+</div>
+
+<div class="content row-fluid" >
+
+<div class="row-fluid">
+    <div class="span12 hero-unit back-color-1">
+        <div class="span2">
+            <ul class="thumbnails">
+                <li class="span12">
+                    <img src="{{ asset('bundles/coreorthos/img/img_error.png') }}" alt="">
+                </li>
+            </ul>
+        </div>
+        <div class="span8">
+            <h3>O acesso a este endereço foi negado</h3>
+            <p class="lead">Por gentileza, acesse a página de autenticação e digite suas informações de acesso</p>
+            <p class="pull-right"><a class="btn btn-primary" href="/login">Página de Autenticação</button></a>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,100 @@
+<div class="box-shadow-white well">
+<fieldset>
+    <legend>Cadastro de Usuário</legend>
+    <input id="listPerfil" type="hidden" value="{{listPerfil}}">
+    <input id="listClinica" type="hidden" value="{{listClinica}}">
+    <input id="usuario" type="hidden" value="{{usuario}}">
+
+    {% raw %}
+    <form ng-controller="cadastroUsuarioCtrl" class="form-horizontal">
+        <div class="box control-group">
+            <small>
+                <span class="add-on"><li class="icon-exclamation-sign"></li></span> Os campos marcados com "*" são de preenchimento obrigatório
+            </small>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">* Atendente</label>
+            <div class="controls">
+                <div class="btn-group" bs-buttons-radio>
+                    <button type="button" class="btn" ng-model="atendente.sim">Sim</button>
+                    <button type="button" class="btn" ng-model="atendente.nao">Não</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">* Dentista</label>
+            <div class="controls">
+                <div class="btn-group" bs-buttons-radio>
+                    <button type="button" class="btn" ng-model="medico.sim">Sim</button>
+                    <button type="button" class="btn" ng-model="medico.nao">Não</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">* Clínica</label>
+            <div class="controls">
+                <select class="j-clinicas" select-multiple multiple="multiple" ng-model="form.sqClinicas" ng-options="item.sqClinica as item.noClinica for (sqClinica, item) in listClinica"></select>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">* Nome</label>
+            <div class="controls">
+                <input type="text" class="input-xxlarge" ng-model="form.no_usuario" maxlength="255" placeholder="Nome do usuário">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="inputEmail">* E-mail</label>
+            <div class="controls">
+                <input type="text" class="input-xxlarge" ng-model="form.ds_email" id="inputEmail" maxlength="255" placeholder="E-mail do usuário">
+            </div>
+        </div>
+
+        <div ng-show="showPassword()">
+            <div class="control-group">
+                <label class="control-label" for="inputEmail">* Senha</label>
+                <div class="controls">
+                    <input type="password" name="password" ng-model="form.tx_senha" maxlength="10">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="inputEmail">* Repita sua Senha</label>
+                <div class="controls">
+                    <input type="password" name="confirm_password" ng-model="form.tx_r_senha" maxlength="10">
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="control-group">
+                <label class="control-label" for="inputEmail">Ativação</label>
+                <div class="controls">
+                    <div class="btn-group" bs-buttons-radio>
+                        <button type="button" class="btn" ng-model="form.fl_ativo">Ativado</button>
+                        <button type="button" class="btn" ng-model="form.fl_desativado">Desativado</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="inputEmail">Perfil</label>
+                <div class="controls">
+                    <select class="j-perfis" select-multiple multiple="multiple" ng-model="form.sqPerfil" ng-options="item.sqPerfil as item.noPerfil for (sqPerfil, item) in listPerfil"></select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="button" ng-click="submit()" class="btn btn-primary">Salvar</button>
+            <button type="button" class="btn" ng-click="pesquisa()">Cancelar</button>
+        </div>
+    </form>
+    {% endraw %}
+</fieldset>
+</div>
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/Usuario/js/cadastro.js') }}"></script>

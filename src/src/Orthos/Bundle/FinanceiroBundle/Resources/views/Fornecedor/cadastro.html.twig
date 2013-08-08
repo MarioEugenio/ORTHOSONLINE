@@ -1,0 +1,59 @@
+<div class="box-shadow-white well">
+    <fieldset>
+        <legend>Cadastro Fornecedor</legend>
+        <input type="hidden" id="sqFornecedor" value="{{sqFornecedor}}">
+        {% raw %}
+        <form ng-controller="fornecedorCadastroCtrl" class="form-horizontal">
+            <input type="hidden" ng-model="form.sq_fornecedor">
+
+            <div class="box control-group">
+                <small>
+                    <span class="add-on"><li class="icon-exclamation-sign"></li></span> Os campos marcados com "*" são de preenchimento obrigatório
+                </small>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">* Nome Fornecedor</label>
+                <div class="controls">
+                    <input type="text" class="input-xxlarge" ng-model="form.no_fornecedor" maxlength="255">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">* Razao Social</label>
+                <div class="controls">
+                    <input type="text" class="input-xxlarge" ng-model="form.no_razao_social" maxlength="255">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Nº CNPJ</label>
+                <div class="controls">
+                    <input type="text" class="input-medium cnpj" ng-model="form.nu_cnpj" maxlength="20">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Telefone</label>
+                <div class="controls">
+                    <input type="text" class="input-medium fone" ng-model="form.nu_telefone" maxlength="20">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Contato</label>
+                <div class="controls">
+                    <input type="text" class="input-xxlarge" ng-model="form.no_contato" maxlength="255">
+                </div>
+            </div>
+
+
+            <div class="form-actions">
+                <button type="button" ng-click="submit()" class="btn btn-primary">Salvar</button>
+                <button type="button" class="btn" ng-click="pesquisa()">Cancelar</button>
+            </div>
+        </form>
+        {% endraw %}
+    </fieldset>
+</div>
+<script type="text/javascript" src="{{ asset('bundles/orthosfinanceiro/js/fornecedor_cadastro.js') }}"></script>

@@ -2,9 +2,9 @@ parameters:
     database_driver:   pdo_mysql
     database_host:     localhost
     database_port:     3306
-    database_name:     renatoca_tagmeta
-    database_user:     orthos
-    database_password: orthos
+    database_name:     orthosonline
+    database_user:     weborthos
+    database_password: orthos102030
 
     mailer_transport: gmail
     mailer_host:       ~

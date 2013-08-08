@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+
+    <services>
+        <service id="Orthos.FinanceiroBusiness" class="Orthos\Bundle\FinanceiroBundle\Business\FinanceiroBusiness">
+            <argument type="service" id="service_container"/>
+        </service>
+
+        <service id="Orthos.ParcelasBusiness" class="Orthos\Bundle\FinanceiroBundle\Business\ParcelasBusiness">
+            <argument type="service" id="service_container"/>
+        </service>
+
+        <service id="Orthos.LancamentosBusiness" class="Orthos\Bundle\FinanceiroBundle\Business\LancamentosBusiness">
+            <argument type="service" id="service_container"/>
+        </service>
+
+        <service id="Orthos.LancamentosCategoriaBusiness" class="Orthos\Bundle\FinanceiroBundle\Business\LancamentosCategoriaBusiness">
+            <argument type="service" id="service_container"/>
+        </service>
+
+        <service id="Orthos.FornecedorBusiness" class="Orthos\Bundle\FinanceiroBundle\Business\FornecedorBusiness">
+            <argument type="service" id="service_container"/>
+        </service>
+    </services>
+</container>

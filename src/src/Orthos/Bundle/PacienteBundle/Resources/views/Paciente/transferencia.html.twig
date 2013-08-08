@@ -1,0 +1,16 @@
+<div class="clearfix padding-content">
+    <form ng-controller="transferenciaCtrl">
+        <input type="hidden" id="clinicas" value="{{clinicas}}">
+        {% raw %}
+        <div class="span12">
+            <small>Selecione a Clínica para transferência</small><br>
+            <div class="input-append">
+                <select ng-model="transf.clinica" ng-options="cli.sqClinica as cli.noClinica for cli in listClinica"></select>
+                <button class="btn" ng-click="submit()"><li class="icon-share"></li></button>
+            </div>
+        </div>
+        {% endraw %}
+    </form>
+</div>
+
+<script type="text/javascript" src="{{ asset('bundles/orthospaciente/js/transferencia.js') }}"></script>

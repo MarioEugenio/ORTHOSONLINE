@@ -1,0 +1,29 @@
+<input type="hidden" id="listaDiaria" value="{{list}}">
+<div ng-controller="listaDiariaCtrl">
+    {% raw %}
+    <div class="clearfix padding-content">
+        <div class="row">
+            <div class="span12">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="muted">Agendados: <span class="pull-right label label-info">{{countAgendados()}}</span></td>
+                            <td class="muted">Em Espera: <span class="pull-right label label-info">{{countEmEspera()}}</span></td>
+                        </tr>
+                        <tr>
+                            <td class="muted">Finalizadas: <span class="pull-right label label-info">{{countFinalizado()}}</span></td>
+                            <td class="muted">Em Atendimento: <span class="pull-right label label-info">{{countEmAtendimento()}}</span></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="2" class="header"><strong>Total de Consultas:</strong> {{listDiaria.length}}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+   {% endraw %}
+</div>
+<script type="text/javascript" src="{{ asset('bundles/orthosagenda/js/dsListaDiaria.js') }}"></script>

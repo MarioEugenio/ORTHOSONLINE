@@ -1,0 +1,123 @@
+
+<form class="span12" ng-controller="cadastroProntuarioCtrl">
+    <input id="sqPaciente" type="hidden" value="{{sqPaciente}}">
+    <input id="consultas" type="hidden" value="{{consultas}}">
+    {% raw %}
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Prontuário</h3>
+    </div>
+    <div class="modal-body">
+        <div ng-show="alert" class="alert">
+            <strong>Alerta!</strong> {{alert}}
+        </div>
+
+        <div ng-show="success" class="alert alert-success">
+            <strong>Mensagem!</strong> {{success}}
+        </div>
+
+        <div ng-show="viewCadastro()" class="box clearfix">
+            <h5>Cadastro de Procedimento</h5>
+            <div class="row">
+                <div class="span12">
+                    <label>Especialidade</label>
+                    <div class="btn-group" bs-buttons-radio>
+                        <button type="button" class="btn" ng-model="proc.ortodontia">Ortodontia</button>
+                        <button type="button" class="btn" ng-model="proc.clinicaGeral">Clínica Geral</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="span8">
+                    <label>* Nome</label>
+                    <input type="text" ng-model="proc.no_procedimento" class="span12" maxlength="100" placeholder="Digite o nome do procedimento">
+                </div>
+
+                <div class="span4">
+                    <label>Valor R$</label>
+                    <input type="text" ng-model="proc.vl_procedimento" class="span12 money">
+                </div>
+            </div>
+
+            <div class="row pull-right">
+                <button type="button" class="btn" ng-click="cadastro = false">Cancelar</button>
+                <button type="button" class="btn btn-primary" ng-click="cadastrarProcedimento()">Salvar</button>
+            </div>
+        </div><br>
+
+        <div class="row">
+            <div class="span12">
+                <label>Especialidade</label>
+                <div class="btn-group" bs-buttons-radio>
+                    <button type="button" class="btn" ng-model="especialidade.ortodontia">Ortodontia</button>
+                    <button type="button" class="btn" ng-model="especialidade.clinicaGeral">Clínica Geral</button>
+                </div>
+            </div>
+
+        </div> <br>
+
+        <div class="row">
+            <div class="span12">
+                <label>* Agendamento(s)</label>
+                <label ng-repeat="consulta in consultas" class="radio">
+                    <input type="radio" name="agenda" ng-model="form.sq_agenda" value="{{consulta.sq_agenda}}">
+                     {{consulta.dt_inicio}} / {{consulta.dt_fim}} - <strong>Obs.:</strong> {{consulta.tx_observacao}}
+                </label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12 input-append">
+                <label>Procedimento(s) Realizado(s)</label>
+                <input type="text" ng-model="form.procedimento1" class="input-xlarge" placeholder="Digite o nome do procedimento" typeaheadId="sqProcedimento1" bs-typeahead="autocompleteProcedimento">
+                <button type="button" ng-click="addProcedimentoRealizado()" class="btn btn-primary"><li class="icon-plus-sign icon-white" ></li></button>
+            </div>
+
+            <div ng-show="listProcedimentoRealizados.length" class="clearfix">
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr ng-repeat="item in listProcedimentoRealizados">
+                        <td>{{item.noProcedimento}}</td>
+                        <td class="span1"><button type="button" ng-click="removeProcedimentoRealizado($index)" class="btn"><li class="icon-trash"></li></button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12 input-append">
+                <label>Procedimento(s) a Realizar</label>
+                <input type="text" ng-model="form.procedimento2" class="input-xlarge" placeholder="Digite o nome do procedimento" typeaheadId="sqProcedimento2" bs-typeahead="autocompleteProcedimento">
+                <button type="button" ng-click="addProcedimentoARealizar()" class="btn btn-primary"><li class="icon-plus-sign icon-white"></li></button>
+            </div>
+
+            <div ng-show="listProcedimentoARealizar.length" class="clearfix">
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr ng-repeat="item in listProcedimentoARealizar">
+                        <td>{{item.noProcedimento}}</td>
+                        <td class="span1"><button type="button" ng-click="removeProcedimentoARealizar($index)" class="btn"><li class="icon-trash"></li></button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span12">
+                <label>Observação</label>
+                <textarea rows="2" cols="2" class="span12" ng-model="form.tx_observacao"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+        <button type="button" class="btn btn-info" ng-click="cadastro = true">Novo Procedimento</button>
+        <button class="btn btn-primary" ng-click="submit()" type="button">Salvar</button>
+    </div>
+    {% endraw %}
+</form>
+
+<script type="text/javascript" src="{{ asset('bundles/orthosprontuario/js/cadastro.js') }}"></script>

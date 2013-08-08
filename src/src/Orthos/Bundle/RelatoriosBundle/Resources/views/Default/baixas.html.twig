@@ -1,0 +1,27 @@
+<div class="box-shadow-white well">
+    <fieldset>
+        <legend>Relatório Financeiro</legend>
+
+        <form method="POST" target="_blank" action="/web/relatorio/bind/financeiro/baixas">
+            <div class="box clearfix" >
+                <div style="margin-top: 15px;" class="row">
+                    <div class="span3">
+                        <div class="control-group">
+                            <label>Data</label>
+                            <div class="controls">
+                                <div class="input-append">
+                                    <input type="text" class="input-medium" id="dt_vencimento" name="dt_vencimento" placeholder="Digite a data" readonly="readonly" data-date-format="dd/mm/yyyy" bs-datepicker>
+                                    <button type="button" class="btn j-datepicker"  data-toggle="datepicker"><i class="icon-calendar"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="span3 marginTopButton">
+                        <button type="submit" class="btn btn-primary">Gerar Relatório</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </fieldset>
+</div>

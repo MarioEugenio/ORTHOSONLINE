@@ -1,0 +1,246 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Orçamento</h3>
+</div>
+<div class="modal-body">
+    <div class="clearfix padding-content">
+
+
+        <form ng-controller="orcamentoCtrl">
+
+
+            <input type="hidden" id="tabelaPreco" value="{{tabelaPreco}}">
+            {% raw %}
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="nav-collapse pull-left">
+                        <a href="#" class="brand">Etapa {{etapa}} de 3</a>
+                    </div>
+
+                    <div class="nav-collapse pull-right" style="margin-top: 2px;">
+                        <button type="button" ng-show="viewVoltar()" ng-click="voltar()" class="btn btn-small btn-primary"><span class="icon-circle-arrow-left icon-white"></span> Voltar</button>
+                        <button type="button" ng-show="viewAvancar()" ng-click="avancar()" class="btn btn-small btn-primary">Avançar <span class="icon-circle-arrow-right icon-white"></span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="alert" class="alert">
+                <strong>Alerta!</strong> {{alert}}
+            </div>
+
+            <div ng-show="etapa == 1">
+                <div class="row">
+                    <div class="span6">
+                        <label>Especialidade</label>
+                        <div class="btn-group" bs-buttons-radio>
+                            <button type="button" class="btn" ng-click="setOrtodontia()" ng-model="esp.ortodontia">Ortodontia</button>
+                            <button type="button" class="btn" ng-click="setClinicaGeral()" ng-model="esp.clinicageral">Clínica Geral</button>
+                        </div>
+                    </div>
+                    <div class="span6 pull-right marginTopButton">
+                        <div class="input-prepend right">
+                            <span class="add-on"><li class="icon-search"></li></span>
+                            <input ng-model="query" type="text" placeholder="pesquise tabela de orçamento">
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="getListFixo().length" class="row">
+                    <div class="span12">
+
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th colspan="3"><small>Aparelho Ortodôntico</small></th>
+                            </tr>
+                            <tr class="header">
+                                <th></th>
+                                <th>Tabela</th>
+                                <th>Preço</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr class="info" ng-show="getListFixo().length == 0">
+                                <td colspan="10"><li class="icon-info-sign"></li>&nbsp;<strong>Não há retorno de registros</strong></td>
+                            </tr>
+
+                            <tr ng-repeat="item in getListFixo()" ng-show="getListFixo().length">
+                                <td class="span1">
+                                    <input type="radio" name="tabelaPrecoAparelho" ng-show="especialidade == 1" ng-model="orc.radioFixo" value="{{item.sq_tabela_preco}}">
+                                </td>
+                                <td>{{item.no_procedimento}}</td>
+                                <td>{{item.vl_total}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="span12">
+
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr class="header">
+                                <th></th>
+                                <th>Tabela</th>
+                                <th>Preço</th>
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            <tr class="info" ng-show="getList().length == 0">
+                                <td colspan="10"><li class="icon-info-sign"></li>&nbsp;<strong>Não há retorno de registros</strong></td>
+                            </tr>
+
+                            <tr ng-repeat="item in getList() | filter:query" ng-show="getList().length">
+                                <td class="span1">
+                                    <input type="checkbox" ng-show="especialidade == 2" ng-model="checkbox[item.sq_tabela_preco]" name="{{item.sq_tabela_preco}}">
+                                    <input type="radio" name="tabelaPreco" ng-show="especialidade == 1" ng-model="orc.radio" value="{{item.sq_tabela_preco}}">
+                                </td>
+                                <td>{{item.no_procedimento}}</td>
+                                <td>{{item.vl_total}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="etapa == 2">
+                <div class="row">
+                    <div class="span6 input-append">
+                        <label>Data Primeiro Parcela</label>
+                            <input type="text" class="date input-medium j-data" ng-model="orc.dt_vencimento" data-date-format="dd/mm/yyyy" bs-datepicker placeholder="Data Inicial">
+                            <button type="button" class="btn j-datepicker" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+
+                    </div>
+                    <div class="span6">&nbsp;</div>
+                </div>
+
+                <div class="row">
+                    <div class="span6">
+                        <label>R$ Desconto</label>
+                        <input type="text" ng-model="orc.vl_desconto" money class="span12 j-desconto">
+                    </div>
+
+                    <div class="span3">
+                        <label>* Nº de Parcela(s)</label>
+                        <input type="text" ng-model="orc.nu_parcelas" number class="span12">
+                    </div>
+
+                    <div class="span3 marginTopButton">
+                        <button type="button" class="btn btn-primary btn-small" ng-click="recalcular()"><li class="icon-repeat icon-white"></li> Recalcular</button>
+                    </div>
+                </div>
+
+                <div ng-show="orc.radioFixo" class="row">
+                    <div class="span6">
+                        <label>Aparelho Ortodôntico</label>
+                        <input type="text" ng-readonly="true" ng-model="aparelho.nome" readonly="readonly" class="span12">
+                    </div>
+
+                    <div class="span6">
+                        <label>R$ Valor Aparelho</label>
+                        <input type="text" ng-readonly="true" ng-model="aparelho.valor" readonly="readonly" class="span12">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="span6">
+                        <label>R$ Valor Parcelado</label>
+                        <input type="text" readonly="readonly" ng-model="orc.nu_valor_parcelado" class="span12" value="{{getValorParcelado()}}">
+                    </div>
+
+                    <div class="span6">
+                        <label>R$ Valor Total</label>
+                        <input type="text" ng-model="orc.nu_valor_total" money ng-readonly="esp.ortodontia" class="span12 j-orcValorTotal">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                        <tr class="header">
+                            <th>Parcela</th>
+                            <th>Data</th>
+                            <th>Valor</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr class="info" ng-show="parcela.length == 0">
+                            <td colspan="10"><li class="icon-info-sign"></li>&nbsp;<strong>Não há retorno de registros</strong></td>
+                        </tr>
+
+                        <tr ng-repeat="item in parcela" ng-show="parcela.length">
+                            <td class="span1">{{item.parcela}}</td>
+                            <td>{{item.data}}</td>
+                            <td>{{item.valor}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div ng-show="etapa == 3">
+                <div class="row">
+                    <div class="span12">
+                        <label>* Forma de Pagamento</label>
+                        <div class="btn-group" bs-buttons-radio>
+                            <button type="button" ng-click="cartao = false" class="btn" ng-model="pag.boleto">Boleto</button>
+                            <button type="button" ng-click="cartao = true" class="btn" ng-model="pag.cartao_credito">Cartao de Crédito</button>
+                            <button type="button" ng-click="cartao = true" class="btn" ng-model="pag.cartao_debito">Cartao de Débito</button>
+                            <button type="button" ng-click="cartao = false" class="btn" ng-model="pag.cheque">Cheque</button>
+                            <button type="button" ng-click="cartao = false" class="btn" ng-model="pag.dinheiro">Dinheiro</button>
+                        </div>
+                    </div>
+                </div><br>
+
+                <div ng-show="cartao" class="row box clearfix">
+                    <div class="span12">
+                        <label>* Informações do cartão</label>
+                        <input type="text" class="input-xlarge" placeholder="Titular do cartão">
+                        <input type="text" class="input-medium" placeholder="Nº do cartão">
+                        <input type="text" class="input-medium" placeholder="Dígito de segurança">
+                        <p>
+                        <div class="btn-group" bs-buttons-radio>
+                            <button type="button" class="btn" ng-model="pag.cartao_visa">Visa</button>
+                            <button type="button" class="btn" ng-model="pag.cartao_master">Master</button>
+                        </div>
+                        </p>
+                    </div>
+
+                </div><br>
+
+                <div ng-show="pag.cheque" class="row box clearfix">
+                    <div class="span12">
+                        <label>* Informações do cheque</label>
+                        <input type="text" class="input-xlarge" placeholder="Nº do Documento">
+                        <div class="input-append">
+                            <input type="text" class="date input-medium" placeholder="Data pré datado">
+                            <button type="button" class="btn j-datepicker" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+                        </div>
+
+                    </div>
+
+                </div><br>
+
+                <div class="row">
+                    <div class="span12">
+                        <p><button type="button" class="btn btn-primary" ng-click="gerarParcelas()"><li class="icon-circle-arrow-down icon-white"></li> Gerar Parcelas</button></p>
+                    </div>
+                </div>
+
+            </div>
+            {% endraw %}
+        </form>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+    <button class="btn btn-primary" ng-show="aprovar()" ng-click="submit()" type="button">Aprovar Orçamento</button>
+</div>
+
+<script type="text/javascript" src="{{ asset('bundles/orthosfinanceiro/js/orcamento.js') }}"></script>

@@ -1,0 +1,33 @@
+<div ng-controller="alterarSenhaCtrl">
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Alterar Senha</h3>
+</div>
+<div class="modal-body">
+<div class="clearfix padding-content">
+<form>
+{% raw %}
+    <div ng-show="alert" class="alert">
+        <strong>Alerta!</strong> {{alert}}
+    </div>
+
+    <div class="row">
+        <label>Nova Senha</label>
+        <input ng-model="pass.tx_senha" type="password" placeholder="digite nova senha">
+    </div>
+
+    <div class="row">
+        <label>Repita a Senha</label>
+        <input ng-model="pass.tx_rep_senha" type="password" placeholder="repita a nova senha">
+    </div>
+{% endraw %}
+</form>
+</div>
+</div>
+<div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+    <button class="btn btn-primary" ng-click="submit()" type="button">Salvar</button>
+</div>
+</div>
+
+<script type="text/javascript" src="{{ asset('bundles/coreorthos/Usuario/js/alterarSenha.js') }}"></script>

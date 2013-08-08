@@ -1,0 +1,86 @@
+{% raw %}
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" ng-click="clear()" aria-hidden="true">×</button>
+    <h3>Agendamento</h3>
+</div>
+<div class="modal-body">
+    <form style="width: 500px">
+        <div class="row">
+        <div class="span5">
+            <label>Período</label>
+            <div class="control-group">
+                {{tmpItem.date}} - {{tmpItem.time}} <span ng-show="tmpItem.item.dtChegada" class="label label-important pull-right">Chegada: {{tmpItem.item.dtChegada}}</span>
+                <span ng-show="listParcelas.length" class="label label-warning pull-right">Parc. Atrasadas: {{listParcelas.length}}</span>
+            </div>
+        </div>
+        </div>
+
+        <div class="span1">
+            <label>Matrícula</label>
+            <input type="text" class="input-mini" ng-readonly="true" ng-model="formModal.nu_matricula">
+        </div>
+        <div class="span4">
+            <div class="input-append">
+                <label>* Paciente</label>
+                <input type="text" class="input-xlarge j-paciente"
+                       ui-event="{ blur : 'getMatricula()' }"
+                       ng-model="formModal.no_paciente"
+                       typeaheadId="sqPaciente"
+                       ng-readonly="tmpItem.edit"
+                       bs-typeahead="autocompletePaciente">
+                <button type="button" ng-click="getMatricula()" class="btn"><li class="icon-search"></li></button>
+            </div>
+            <button ng-show="tmpItem.item.paciente.id" data-dismiss="modal" aria-hidden="true" style="margin-top: 15px;" ng-click="accessUser(tmpItem.item)" class="btn" type="button"><li class="icon-user"></li></button>
+
+        </div>
+
+        <div ng-show="listProntuario.length > 0" class="span5">
+            <small>Última consulta:</small>
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="header">
+                        <th>Data</th>
+                        <th>Realizados</th>
+                        <th>A Realizar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in listProntuario">
+                        <td>{{item.dt_procedimento}}</td>
+                        <td ng-bind-html-unsafe="formataProcedimentos(item.realizados)"></td>
+                        <td ng-bind-html-unsafe="formataProcedimentos(item.arealizar)"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="span1">
+            <label>Cadeira</label>
+            <input type="hidden" class="j-cadeira" value="{{tmpItem.item.sqCadeira}}">
+            <input type="text" ng-readonly="true" class="input-mini" value="{{tmpItem.item.numero}}">
+        </div>
+        <div class="span4">
+            <div class="input-append">
+                <label>Atendente</label>
+                <input type="text" class="input-xlarge j-atendente" ui-event="{ blur : 'getAtendente()' }"
+                       ng-model="formModal.no_atendente" typeaheadId="sqAtendente"
+                       bs-typeahead="autocompleteAtendente">
+                <span class="add-on"><li class="icon-search"></li></span>
+            </div>
+        </div>
+
+        <div class="span5">
+            <label>Observeções</label>
+            <textarea rows="3" cols="10" class="span5" ng-model="formModal.tx_observacao"></textarea>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn" data-dismiss="modal" ng-click="clear()" aria-hidden="true">Fechar</button>
+    <button class="btn btn-info" data-dismiss="modal" aria-hidden="true" ng-show="viewAgendar()" ng-click="agendarConsulta()">Agendar</button>
+    <button class="btn btn-info" data-dismiss="modal" aria-hidden="true" ng-show="tmpItem.edit == true" ng-click="setStatus(formModal, 2)"><li class="icon-upload icon-white"></li> Em Espera</button>
+    <button class="btn btn-info" data-dismiss="modal" aria-hidden="true" ng-show="tmpItem.edit == true" ng-click="setStatus(formModal, 5)"><li class="icon-upload icon-white"></li> Em Atend.</button>
+    <button class="btn btn-info" data-dismiss="modal" aria-hidden="true" ng-show="tmpItem.edit == true" ng-click="setStatus(formModal, 4)"><li class="icon-upload icon-white"></li> Finalizado</button>
+    <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true" ng-show="tmpItem.edit == true" ng-click="agendarConsulta()">Salvar</button>
+</div>
+{% endraw %}
