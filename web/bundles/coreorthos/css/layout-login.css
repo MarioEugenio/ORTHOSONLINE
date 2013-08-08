@@ -1,0 +1,24 @@
+.bg-corp {
+    background-image: url("/bundles/coreorthos/img/bg_orthos.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+
+.boxLogin-corp {
+    color: #000000;
+    margin-right: -400px;
+    margin-top: -100px;
+    position: absolute;
+    right: 50%;
+    top: 40%;
+    width: 280px;
+}
+
+.back-box-login-corp {
+    background-image: url("/bundles/coreorthos/img/bg_login_box.png");
+    border: 0 none;
+    border-radius: 4px 4px 4px 4px;
+    color: #111111;
+    font-family: "Helvetica Neue",Arial,sans-serif;
+    padding: 10px;
+}

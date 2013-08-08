@@ -46,9 +46,9 @@
     <parameter key="database_driver">pdo_mysql</parameter>
     <parameter key="database_host">localhost</parameter>
     <parameter key="database_port">3306</parameter>
-    <parameter key="database_name">renatoca_tagmeta</parameter>
-    <parameter key="database_user">orthos</parameter>
-    <parameter key="database_password">orthos</parameter>
+    <parameter key="database_name">orthosonline</parameter>
+    <parameter key="database_user">weborthos</parameter>
+    <parameter key="database_password">orthos102030</parameter>
     <parameter key="mailer_transport">gmail</parameter>
     <parameter key="mailer_host">null</parameter>
     <parameter key="mailer_user">mario.eugenio@gmail.com</parameter>
@@ -477,8 +477,8 @@
     <parameter key="jms_di_extra.directories" type="collection"/>
     <parameter key="jms_di_extra.cache_dir">/var/www/ORTHOSONLINE/app/cache/dev/jms_diextra</parameter>
     <parameter key="jms_di_extra.doctrine_integration">true</parameter>
-    <parameter key="jms_di_extra.doctrine_integration.entity_manager.file">/var/www/ORTHOSONLINE/app/cache/dev/jms_diextra/doctrine/EntityManager_5202fcd2b448d.php</parameter>
-    <parameter key="jms_di_extra.doctrine_integration.entity_manager.class">EntityManager5202fcd2b448d_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager</parameter>
+    <parameter key="jms_di_extra.doctrine_integration.entity_manager.file">/var/www/ORTHOSONLINE/app/cache/dev/jms_diextra/doctrine/EntityManager_5202ff37b8e57.php</parameter>
+    <parameter key="jms_di_extra.doctrine_integration.entity_manager.class">EntityManager5202ff37b8e57_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager</parameter>
     <parameter key="security.secured_services" type="collection"/>
     <parameter key="security.access.method_interceptor.class">JMS\SecurityExtraBundle\Security\Authorization\Interception\MethodSecurityInterceptor</parameter>
     <parameter key="security.access.method_access_control" type="collection"/>
@@ -1608,7 +1608,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>5202fcd2a53e7</argument>
+            <argument>5202ff37aac65</argument>
           </service>
         </argument>
       </argument>
@@ -1828,7 +1828,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.context"/>
-            <argument>5202fcd2a53e7</argument>
+            <argument>5202ff37aac65</argument>
             <argument type="service" id="monolog.logger.security"/>
           </service>
         </argument>
@@ -2138,11 +2138,11 @@
     <service id="doctrine.dbal.logger.profiling.default" class="Doctrine\DBAL\Logging\DebugStack" public="false"/>
     <service id="doctrine.dbal.default_connection" class="stdClass" factory-method="createConnection" factory-service="doctrine.dbal.connection_factory">
       <argument type="collection">
-        <argument key="dbname">renatoca_tagmeta</argument>
+        <argument key="dbname">orthosonline</argument>
         <argument key="host">localhost</argument>
         <argument key="port">3306</argument>
-        <argument key="user">orthos</argument>
-        <argument key="password">orthos</argument>
+        <argument key="user">weborthos</argument>
+        <argument key="password">orthos102030</argument>
         <argument key="charset">UTF8</argument>
         <argument key="driver">pdo_mysql</argument>
         <argument key="driverOptions" type="collection"/>
@@ -2204,8 +2204,8 @@
     <service id="doctrine.orm.default_manager_configurator" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator">
       <argument type="collection"/>
     </service>
-    <service id="doctrine.orm.default_entity_manager" class="EntityManager5202fcd2b448d_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager">
-      <file>/var/www/ORTHOSONLINE/app/cache/dev/jms_diextra/doctrine/EntityManager_5202fcd2b448d.php</file>
+    <service id="doctrine.orm.default_entity_manager" class="EntityManager5202ff37b8e57_546a8d27f194334ee012bfe64f629947b07e4919\__CG__\Doctrine\ORM\EntityManager">
+      <file>/var/www/ORTHOSONLINE/app/cache/dev/jms_diextra/doctrine/EntityManager_5202ff37b8e57.php</file>
       <argument type="service">
         <service class="Doctrine\ORM\EntityManager" factory-method="create" public="false">
           <argument type="service" id="doctrine.dbal.default_connection"/>

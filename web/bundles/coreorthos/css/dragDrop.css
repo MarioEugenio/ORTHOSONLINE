@@ -1,0 +1,47 @@
+div.recebeDrag{}
+
+div.itemInfo
+{
+    border:1px solid #f2f2f2;
+    margin:4px!important;
+    height:auto;
+    min-height:600px;
+    border-radius: 6px 6px 6px 6px;
+    background-color:#F7F7F7;
+}
+
+div.itemDrag
+{
+    border:1px solid #f2f2f2;
+    margin:4px!important;
+    min-height:200px;
+    border-radius: 6px 6px 6px 6px;
+}
+
+div#drop-esquerda,div#drop-direita
+{
+    width:50%;
+    float:left;
+    min-height:500px;
+}
+
+.dragHelper
+{
+    border:1px dashed #A5A5A4;
+    background-color:#CCC;
+    min-height:200px;
+    margin:4px;
+}
+
+.itemDrag p small
+{
+    display:block;
+    margin-top:6px;
+}
+
+.itemDrag p a
+{
+    font-weight:900;
+    text-decoration:none;
+    border-bottom:1px dotted blue;
+}
